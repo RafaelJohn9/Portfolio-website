@@ -186,10 +186,9 @@ class TestStorage(TestCase):
 
         # Get the updated user from the database
         updated_user = storage.get("users", username=new_username)
-
         # Check if the username has been updated
         self.assertEqual(updated_user.username, new_username)
 
         # Clean up
-        storage.delete(updated_user)
+        storage.delete_items_with("users", userId=updated_user.userId)
         storage.save()

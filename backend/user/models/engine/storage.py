@@ -12,6 +12,7 @@ import os
 from models import Base
 from models.user import User
 from models.recommendation import Recommendation
+from sqlalchemy import delete
 
 class DBStorage:
     """
@@ -99,6 +100,16 @@ class DBStorage:
         table = Table(table_name, Base.metadata, autoload_with=self.__session.bind)
         return self.__session.query(table).filter_by(**kwargs).first()
     
+    def delete_items_with(self, table_name, **kwargs):
+        """
+        a method that deletes all items with a specific attr from the database
+        """
+        table = Table(table_name, Base.metadata, autoload_with=self.__session.bind)
+        key, value = next(iter(kwargs.items()))
+        delete_statement = delete(table).where(table.c[key] == value)
+        self.__session.execute(delete_statement)
+        self.__session.commit()
+
     def all_with(self, table_name, **kwargs):
         """
         a method that returns all items with a specific attr from the database
