@@ -13,6 +13,7 @@ from models import Base
 from models.user import User
 from models.recommendation import Recommendation
 from sqlalchemy import delete
+from sqlalchemy import and_
 
 class DBStorage:
     """
@@ -80,12 +81,17 @@ class DBStorage:
 
     def update(self, item, **kwargs):
         """
-        a method that updates a item in the database
+        a method that updates an item in the database
         """
         for key, value in kwargs.items():
             if hasattr(item, key):
                 setattr(item, key, value)
-        self.__session.commit()
+        self.__session.add(item)
+        try:
+            self.__session.commit()
+        except IntegrityError as e:
+            self.__session.rollback()
+            raise e
 
     def save(self):
         """
@@ -93,37 +99,32 @@ class DBStorage:
         """
         self.__session.commit()
 
-    def get(self, table_name, **kwargs):
+    def get(self, class_name, **kwargs):
         """
-        a method that returns a item from the database
+        a method that returns an item from the database
         """
-        table = Table(table_name, Base.metadata, autoload_with=self.__session.bind)
-        return self.__session.query(table).filter_by(**kwargs).first()
+        return self.__session.query(class_name).filter_by(**kwargs).first()
     
-    def delete_items_with(self, table_name, **kwargs):
+    def delete_items_with(self, class_name, **kwargs):
         """
         a method that deletes all items with a specific attr from the database
         """
-        table = Table(table_name, Base.metadata, autoload_with=self.__session.bind)
-        key, value = next(iter(kwargs.items()))
-        delete_statement = delete(table).where(table.c[key] == value)
+        delete_statement = delete(class_name).where(and_(*(getattr(class_name, k) == v for k, v in kwargs.items())))
         self.__session.execute(delete_statement)
         self.__session.commit()
 
-    def all_with(self, table_name, **kwargs):
+    def all_with(self, class_name, **kwargs):
         """
         a method that returns all items with a specific attr from the database
         """
-        table = Table(table_name, Base.metadata, autoload_with=self.__session.bind)
-        return self.__session.query(table).filter_by(**kwargs).all()
+        return self.__session.query(class_name).filter_by(**kwargs).all()
 
 
-    def count(self, table_name):
+    def count(self, class_name):
         """
         returns count of all the items in the database
         """
-        table = Table(table_name, Base.metadata, autoload_with=self.__session.bind)
-        return self.__session.query(table).count()
+        return self.__session.query(class_name).count()
 
     def close(self):
         """Closes the session

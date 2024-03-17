@@ -44,7 +44,19 @@ class Recommendation(Base):
         )
         self.__engine = create_engine(database_url)
         Base.metadata.create_all(self.__engine)
-        
+    
+    def to_dict(self):
+        """
+        Converts the Recommendation object into a dictionary.
+        """
+        return {
+            'recommendation_id': self.recommendation_id,
+            'user_id': self.user_id,
+            'item_id': self.item_id,
+            'item_type': self.item_type,
+            'name': self.name
+        }
+    
     def __repr__(self):
         """
         Returns a string representation of the Recommendation object.

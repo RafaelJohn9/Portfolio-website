@@ -21,12 +21,12 @@ class User(Base):
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     userId = Column(String(150), index=True, unique=True)
-    username = Column(String(50), unique=True)
-    email = Column(String(120), unique=True)
-    password = Column(String(120))
+    username = Column(String(50), unique=True, nullable=True)
+    email = Column(String(120), unique=True, nullable=False)
+    password = Column(String(120), nullable=True)
     
     recommendations = relationship("Recommendation", back_populates="user")
-    def __init__(self, username, password, email):
+    def __init__(self, email, username="", password=""):
         """
         Initializes a User object with the provided user model.
         """
@@ -44,8 +44,19 @@ class User(Base):
         )
         self.__engine = create_engine(database_url)
         Base.metadata.create_all(self.__engine)
-        
-        
+    
+    
+    def to_dict(self):
+        """
+        Converts the User object to a dictionary.
+        """
+        return {
+            'userId': self.userId,
+            'userId': self.userId,
+            'username': self.username,
+            'email': self.email,
+        }
+
     def __repr__(self):
         return f"<UserORM(username={self.username}, email={self.email})>"
     

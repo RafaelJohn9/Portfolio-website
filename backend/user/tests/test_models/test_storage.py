@@ -36,7 +36,7 @@ class TestStorage(TestCase):
         new_user = User(username="user", password="password", email="user@example.com")
         storage.new(new_user)
         storage.save()
-        self.assertIsNotNone(storage.get("users",userId=new_user.userId))
+        self.assertIsNotNone(storage.get(User,userId=new_user.userId))
 
         # Test adding an existing user
         with self.assertRaises(IntegrityError):
@@ -60,7 +60,7 @@ class TestStorage(TestCase):
         same_password_user = User(username="differentuser", password="password", email="differentuser@example.com")
         storage.new(same_password_user)
         storage.save()
-        self.assertIsNotNone(storage.get("users", userId=same_password_user.userId))
+        self.assertIsNotNone(storage.get(User, userId=same_password_user.userId))
 
         # Test adding a new movie, music, book
         # Assuming item_type attribute in Recommendation class can take values "movie", "music", "book"
@@ -71,9 +71,9 @@ class TestStorage(TestCase):
         storage.new(new_music)
         storage.new(new_book)
         storage.save()
-        self.assertIsNotNone(storage.get("recommendations", item_id=new_movie.item_id))
-        self.assertIsNotNone(storage.get("recommendations", item_id=new_music.item_id))
-        self.assertIsNotNone(storage.get("recommendations", item_id=new_book.item_id))
+        self.assertIsNotNone(storage.get(Recommendation, item_id=new_movie.item_id))
+        self.assertIsNotNone(storage.get(Recommendation, item_id=new_music.item_id))
+        self.assertIsNotNone(storage.get(Recommendation, item_id=new_book.item_id))
 
         # Test adding the same movie, music, book
         with self.assertRaises(IntegrityError):
@@ -114,15 +114,15 @@ class TestStorage(TestCase):
         storage.save()
 
         # Test retrieving the user by userId
-        retrieved_user = storage.get("users", userId=user.userId)
+        retrieved_user = storage.get(User, userId=user.userId)
         self.assertEqual(retrieved_user.userId, user.userId)
         
         # Test retrieving the user by username
-        retrieved_user = storage.get("users", username=user.username)
+        retrieved_user = storage.get(User, username=user.username)
         self.assertEqual(retrieved_user.userId, user.userId)
         
         # Test retrieving the user by email
-        retrieved_user = storage.get("users", email=user.email)
+        retrieved_user = storage.get(User, email=user.email)
         self.assertEqual(retrieved_user.userId, user.userId)
         
         storage.delete(user)
@@ -144,7 +144,7 @@ class TestStorage(TestCase):
         storage.save()
 
         # Use all_with to get the items from recommendations table
-        recommendations = storage.all_with("recommendations", user_id=user.userId)
+        recommendations = storage.all_with(Recommendation, user_id=user.userId)
 
         # Check the length and assert that it is two
         self.assertEqual(len(recommendations), 2)
@@ -164,7 +164,7 @@ class TestStorage(TestCase):
         storage.new(user)
         storage.save()
         # Test count method
-        count = storage.count("users")
+        count = storage.count(User)
         self.assertIsInstance(count, int)
         # Clean up
         storage.delete(user)
@@ -185,10 +185,10 @@ class TestStorage(TestCase):
         storage.save()
 
         # Get the updated user from the database
-        updated_user = storage.get("users", username=new_username)
+        updated_user = storage.get(User, username=new_username)
         # Check if the username has been updated
         self.assertEqual(updated_user.username, new_username)
 
         # Clean up
-        storage.delete_items_with("users", userId=updated_user.userId)
+        storage.delete_items_with(User, userId=updated_user.userId)
         storage.save()
