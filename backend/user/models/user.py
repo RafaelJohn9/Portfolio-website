@@ -26,7 +26,7 @@ class User(Base):
     password = Column(String(120), nullable=True)
     
     recommendations = relationship("Recommendation", back_populates="user")
-    def __init__(self, email, username="", password=""):
+    def __init__(self, email, username="", password="", is_active=True):
         """
         Initializes a User object with the provided user model.
         """
@@ -34,6 +34,7 @@ class User(Base):
         self.username = username
         self.email = email
         self.password = generate_password_hash(password)
+        self.is_active = is_active
                     
         database_url = URL.create(
             drivername="mysql+pymysql",
@@ -45,6 +46,29 @@ class User(Base):
         self.__engine = create_engine(database_url)
         Base.metadata.create_all(self.__engine)
     
+    def get_id(self):
+        """
+        Returns the user's id.
+        """
+        return self.userId
+    
+    def is_authenticated(self):
+        """
+        Returns True if the user is authenticated, False otherwise.
+        """
+        return True
+    
+    def is_active(self):
+        """
+        Returns True if the user is active, False otherwise.
+        """
+        return self.is_active
+    
+    def is_anonymous(self):
+        """
+        Returns True if the user is anonymous, False otherwise.
+        """
+        return False
     
     def to_dict(self):
         """

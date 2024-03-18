@@ -1,12 +1,25 @@
 #!/usr/bin/env python3
 """This module creates a Flask app"""
 from api.v1.views import app_views
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flasgger import Swagger
-from flasgger.utils import swag_from
 from models import storage
 from os import getenv
+from flask_login import LoginManager
+from flask import current_app
+from models.user import User
+
+# Define a function to set up Flask-Login within the application context
+def setup_login_manager():
+    with current_app.app_context():
+        current_app.login_manager = login_manager
+
+        @login_manager.user_loader
+        def load_user(user_id):
+            return storage.get(User, userId=user_id)
+
+
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
@@ -16,10 +29,21 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
+# Initialize Flask-Login
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    # Load and return the user object based on the user_id
+    return storage.get(User, userId=user_id)
+
 @app.teardown_appcontext
 def close_db(error):
     """ Close Storage """
     storage.close()
+    
 
 @app.route('/')
 def home():
@@ -29,6 +53,8 @@ def home():
     200:
     description: Welcome message
     """
+    # Call the setup function after the application is created
+    setup_login_manager()
     return jsonify({"message": "Welcome"}), 200
 
     

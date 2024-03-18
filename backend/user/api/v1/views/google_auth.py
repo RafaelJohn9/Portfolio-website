@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-import uuid
-from flask import Flask, redirect, url_for, session
+from flask import redirect, url_for, session
 from flask_oauthlib.client import OAuth
 from models import storage
 from models.user import User
 from api.v1.views import app_views
 import os
 from flask import request
+from flask_login import login_user
 
 oauth = OAuth(app_views)
 
@@ -25,7 +25,7 @@ google = oauth.remote_app(
 )
 
 @app_views.route('/google')
-def login():
+def google_login():
     return google.authorize(callback=url_for('app_views.authorized', _external=True))
 
 @app_views.route('/google/authorized')
@@ -44,8 +44,9 @@ def authorized(resp):
     if user is None:
         user = User(email=user_email)
         storage.new(user)
-    session_token = str(uuid.uuid4())
-    return session_token
+        storage.save()
+    login_user(user)
+    return redirect(url_for('app_views.dashboard'))
 
 @google.tokengetter
 def get_google_oauth_token():
