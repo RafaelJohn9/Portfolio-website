@@ -9,6 +9,7 @@ from models.user import User
 from models import storage
 from sqlalchemy.exc import IntegrityError
 
+
 @app_views.route('/create', methods=['POST'], strict_slashes=False)
 def create_user():
     """
@@ -31,10 +32,15 @@ def create_user():
         else:
             return jsonify({'error': error_message}), 409
 
-    return jsonify({'message': 'New user created', 'user': str(new_user.to_dict())}), 201 
+    return jsonify({
+                    'message': 'New user created',
+                    'user': str(new_user.to_dict())
+                    }), 201
 
 
-@app_views.route('/update/<string:userId>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/update/<string:userId>',
+                 methods=['PUT'],
+                 strict_slashes=False)
 def update_user(userId):
     """
     Update a user and save the changes in the storage.
@@ -57,7 +63,10 @@ def update_user(userId):
     storage.save()
     return jsonify({'message': 'User updated', 'user': user.to_dict()}), 200
 
-@app_views.route('/delete/<string:userId>', methods=['DELETE'], strict_slashes=False)
+
+@app_views.route('/delete/<string:userId>',
+                 methods=['DELETE'],
+                 strict_slashes=False)
 def delete_user(userId):
     """
     Delete a user from the storage.
@@ -69,7 +78,10 @@ def delete_user(userId):
     storage.save()
     return jsonify({'message': 'User deleted'}), 200
 
-@app_views.route('/fetch/<string:userId>', methods=['GET'], strict_slashes=False)
+
+@app_views.route('/fetch/<string:userId>',
+                 methods=['GET'],
+                 strict_slashes=False)
 def fetch_user(userId):
     """
     Fetch a user from the storage.

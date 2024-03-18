@@ -25,9 +25,10 @@ class Recommendation(Base):
     item_type = Column(Enum('book', 'music', 'movie', name='item_types'))
     name = Column(String(120))
     user_id = Column(String(120), ForeignKey('users.userId'))
+    release_date = Column(String(20))
 
     user = relationship("User", back_populates="recommendations")
-    def __init__(self, user_id, item_id, item_type, name):
+    def __init__(self, user_id, item_id, item_type, name, release_date=""):
         """
         Initializes a Recommendation object with the provided user model.
         """
@@ -35,6 +36,7 @@ class Recommendation(Base):
         self.item_id = item_id
         self.item_type = item_type
         self.name = name
+        self.release_date = release_date
         database_url = URL.create(
             drivername="mysql+pymysql",
             username=os.getenv('DB_USER', 'user'),

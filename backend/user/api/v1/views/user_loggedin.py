@@ -1,7 +1,6 @@
 from api.v1.views import app_views
 from flask import jsonify, redirect, request, url_for
 from flask_login import login_required, current_user
-from models import storage
 
 
 @app_views.route('/dashboard', methods=['GET'])
@@ -11,4 +10,4 @@ def dashboard():
     if user.is_authenticated:
         return jsonify(user.to_dict()), 200
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('app_views.homepage', message="Unauthorized access"))

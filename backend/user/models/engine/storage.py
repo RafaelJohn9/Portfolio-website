@@ -47,14 +47,12 @@ class DBStorage:
         """
         if isinstance(item, User):
             existing_user = self.__session.query(User).filter(
-                (User.email == item.email) | (User.username == item.username)
+                (User.email == item.email)
             ).first()
 
             if existing_user:
                 if existing_user.email == item.email:
                     raise IntegrityError("User with this email already exists", None, None)
-                elif existing_user.username == item.username:
-                    raise IntegrityError("User with this username already exists", None, None)
         elif isinstance(item, Recommendation):
             existing_user = self.__session.query(User).filter(User.userId == item.user_id).first()
             if not existing_user:

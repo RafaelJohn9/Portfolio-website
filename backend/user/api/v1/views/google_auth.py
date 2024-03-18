@@ -24,30 +24,49 @@ google = oauth.remote_app(
     authorize_url='https://accounts.google.com/o/oauth2/auth',
 )
 
+
 @app_views.route('/google')
 def google_login():
-    return google.authorize(callback=url_for('app_views.authorized', _external=True))
+    try:
+        return google.authorize(callback=url_for('app_views.authorized',
+                                _external=True))
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return "An error occurred during Google login"
+
 
 @app_views.route('/google/authorized')
 @google.authorized_handler
 def authorized(resp):
-    if resp is None:
-        return 'Access denied: reason=%s error=%s' % (
-            request.args['error_reason'],
-            request.args['error_description']
-        )
-    session['google_token'] = (resp['access_token'], '')
-    me = google.get('userinfo')
-    user_email = me.data['email']
+    try:
+        if resp is None:
+            return 'Access denied: reason=%s error=%s' % (
+                request.args['error_reason'],
+                request.args['error_description']
+            )
+        session['google_token'] = (resp['access_token'], '')
+        me = google.get('userinfo')
+        user_email = me.data['email']
 
-    user = storage.get(User, email=user_email)
-    if user is None:
-        user = User(email=user_email)
-        storage.new(user)
-        storage.save()
-    login_user(user)
-    return redirect(url_for('app_views.dashboard'))
+        user = storage.get(User, email=user_email)
+        if user is None:
+            user = User(email=user_email)
+            try:
+                storage.new(user)
+                storage.save()
+            except Exception as e:
+                print(f"An error occurred: {e}")
+        login_user(user)
+        return redirect(url_for('app_views.dashboard'))
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return "An error occurred during authorization"
+
 
 @google.tokengetter
 def get_google_oauth_token():
-    return session.get('google_token')
+    try:
+        return session.get('google_token')
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None

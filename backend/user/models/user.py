@@ -21,12 +21,12 @@ class User(Base):
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     userId = Column(String(150), index=True, unique=True)
-    username = Column(String(50), unique=True, nullable=True)
+    username = Column(String(50), nullable=True, index=True)
     email = Column(String(120), unique=True, nullable=False)
     password = Column(String(120), nullable=True)
     
     recommendations = relationship("Recommendation", back_populates="user")
-    def __init__(self, email, username="", password="", is_active=True):
+    def __init__(self, email, username=None, password="", is_active=True):
         """
         Initializes a User object with the provided user model.
         """

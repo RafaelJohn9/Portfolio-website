@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Define a function to set up Flask-Login within the application context
 """
 Login and logout routes
 """
@@ -11,6 +12,7 @@ from werkzeug.security import check_password_hash
 from flask_login import LoginManager
 from flask import current_app
 
+
 @app_views.route('/login', methods=['POST'])
 def login():
     """
@@ -19,23 +21,27 @@ def login():
     data = request.get_json()
     if 'email' not in data:
         return jsonify({"message": "Missing email"}), 400
-    
+
     if 'password' not in data:
         return jsonify({"message": "Missing password"}), 400
-    
+
     try:
         user = storage.get(User, email=data.get('email'))
     except Exception as e:
-        return jsonify({"message": "Internal server error", "error": str(e)}), 500
-    
+        return jsonify(
+                {"message": "Internal server error",
+                 "error": str(e)
+                 }), 500
+
     if not user:
         return jsonify({"message": "User does not exist"}), 404
-    
+
     if user and check_password_hash(user.password, data.get('password')):
         login_user(user)
         return redirect(url_for('app_views.dashboard', user_id=user.userId))
-    
+
     return jsonify({"message": "Invalid email or password"}), 401
+
 
 @app_views.route('/logout', methods=['POST'])
 def logout():
@@ -43,4 +49,7 @@ def logout():
     Logs out a user
     """
     logout_user()
-    return redirect(url_for('api.v1.homepage', message="Logged out successfully"))
+    return redirect(
+            url_for('app_views.homepage',
+                    message="Logged out successfully")
+            )

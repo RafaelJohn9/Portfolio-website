@@ -10,15 +10,20 @@ from flask_login import LoginManager
 from flask import current_app
 from models.user import User
 
-# Define a function to set up Flask-Login within the application context
+
 def setup_login_manager():
+    """ a function to set up Flask-Login
+    within the application context
+    """
     with current_app.app_context():
         current_app.login_manager = login_manager
 
         @login_manager.user_loader
         def load_user(user_id):
+            """
+            load_user function that is used to load the current user
+            """
             return storage.get(User, userId=user_id)
-
 
 
 app = Flask(__name__)
@@ -32,18 +37,20 @@ cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 # Initialize Flask-Login
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'app_views.login'
+
 
 @login_manager.user_loader
 def load_user(user_id):
-    # Load and return the user object based on the user_id
+    """ Load and return the user object based on the user_id """
     return storage.get(User, userId=user_id)
+
 
 @app.teardown_appcontext
 def close_db(error):
     """ Close Storage """
     storage.close()
-    
+
 
 @app.route('/')
 def home():
@@ -57,7 +64,7 @@ def home():
     setup_login_manager()
     return jsonify({"message": "Welcome"}), 200
 
-    
+
 @app.errorhandler(404)
 def not_found(error):
     """ 404 Error
@@ -67,6 +74,7 @@ def not_found(error):
         description: a resource was not found
     """
     return jsonify({"error": "Not found"}), 404
+
 
 app.config['SWAGGER'] = {
     'title': 'Portfolio Website Restful API',
