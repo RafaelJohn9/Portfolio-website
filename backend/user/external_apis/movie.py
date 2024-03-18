@@ -4,11 +4,10 @@ a module used for movie fetching information
 """
 import requests
 import json
-from typing import List, Dict
 import os
 
 
-def fetch_movies(movie_name: str) -> List[Dict]:
+def fetch_movies(movie_name, **kwargs):
     """
     Fetches movie details from TMDB API.
 
@@ -34,22 +33,29 @@ def fetch_movies(movie_name: str) -> List[Dict]:
         for movie in data['results']:
             # Create a dictionary to store movie details
             movie_details = {
+                             'item_type': 'movie',
                              'title': movie['title'],
                              'release_date': movie['release_date'],
                              'overview': movie['overview'],
                              'rating': movie['vote_average'],
-                             'poster': f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
+                             'poster': f"https://image.tmdb.org/t/p/w500{movie['poster_path']}",
                              }
             movies.append(movie_details)
-
-        return movies
+        if not kwargs:
+            return movies
+        precise_movies = []
+        
+        for movie in movies:
+            if all(movie.get(key) == value for key, value in kwargs.items()):
+                precise_movies.append(movie)
+        return precise_movies
 
     else:
         return None
     
 if __name__ == "__main__":
     movie_name = "Inception"
-    movie_details = fetch_movies(movie_name)
+    movie_details = fetch_movies(movie_name, release_date="2001-10-26")
     if movie_details:
         for movie in movie_details:
             print(f"Title: {movie['title']}")

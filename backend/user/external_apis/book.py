@@ -2,7 +2,7 @@
 import os
 import requests
 
-def fetch_books(bookname):
+def fetch_books(bookname, **kwargs):
     api_key = os.getenv('BOOK_API')
     base_url = "https://www.googleapis.com/books/v1/volumes"
     params = {
@@ -14,6 +14,7 @@ def fetch_books(bookname):
     books = []
     for item in data['items']:
         book = {
+            "item_type": "book",
             "title": item['volumeInfo'].get('title'),
             "authors": item['volumeInfo'].get('authors'),
             "pages": item['volumeInfo'].get('pageCount'),
@@ -24,11 +25,20 @@ def fetch_books(bookname):
             "cover_images": item['volumeInfo'].get('imageLinks')
         }
         books.append(book)
-    return books
+        
+    if not kwargs:
+        return books
+    
+    precise_books = []
+    for book in books:
+        match = all(book.get(key) == value for key, value in kwargs.items())
+        if match:
+            precise_books.append(book)
+    return precise_books
 
 
 if __name__ == "__main__":
     bookname = "harry potter"
-    books = fetch_books(bookname)
+    books = fetch_books(bookname, release_date="2006-01")
     for book in books:
         print(book)
