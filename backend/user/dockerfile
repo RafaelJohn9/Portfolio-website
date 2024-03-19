@@ -15,17 +15,30 @@ WORKDIR /app
 # Copy requirements.txt and install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY requirements_1.txt .
-RUN pip install --no-cache-dir -r requirements_1.txt
+
+
 
 # Copy your Python application code
 COPY . .
+
+# install api_keys to environ var
+COPY .api_keys.env .
+RUN /bin/bash -c "source .api_keys.env || true"
+
+# start mysql server
+RUN service mariadb start
+
+# Run the mysql script
+# RUN cat models/engine/db.sql | mariadb -u root
 
 # Set up environment variables
 ENV MYSQL_HOST=localhost \
     MYSQL_USER=root \
     MYSQL_PASSWORD=secret \
     MYSQL_DATABASE=mydatabase
+    
+# Expose port 5000
+EXPOSE 5000
 
 # Define the command to run your application
 CMD ["bash"]

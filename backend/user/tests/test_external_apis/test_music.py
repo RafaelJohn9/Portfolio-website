@@ -15,7 +15,8 @@ class TestMusicAPI(unittest.TestCase):
                         'name': 'Track 1',
                         'artists': [{'name': 'Artist 1'}],
                         'preview_url': 'https://example.com/track1',
-                        'album': {'images': [{'url': 'https://example.com/artwork1'}]},
+                        'album': {'images': [{'url': 'https://example.com/artwork1'}],
+                                  'release_date': '2020/11/12'},
                         'external_urls': {'spotify': 'https://example.com/direct1'},
                         'uri': 'spotify:track:123456',
                         'id': '123456'
@@ -24,7 +25,8 @@ class TestMusicAPI(unittest.TestCase):
                         'name': 'Track 2',
                         'artists': [{'name': 'Artist 2'}],
                         'preview_url': 'https://example.com/track2',
-                        'album': {'images': [{'url': 'https://example.com/artwork2'}]},
+                        'album': {'images': [{'url': 'https://example.com/artwork2'}],
+                                  'release_date': '2020/11/12'},
                         'external_urls': {'spotify': 'https://example.com/direct2'},
                         'uri': 'spotify:track:789012',
                         'id': '789012'
