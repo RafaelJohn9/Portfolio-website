@@ -16,18 +16,13 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-
+# installing gunicorn and tmux
 
 # Copy your Python application code
 COPY . .
 
 # install api_keys to environ var
-COPY .api_keys.env .
-RUN /bin/bash -c "source .api_keys.env || true"
 
-
-# Run the mysql script
-# RUN cat models/engine/db.sql | mariadb -u root
 
 # Set up environment variables
 ENV MYSQL_HOST=localhost \
