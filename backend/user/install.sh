@@ -8,13 +8,17 @@ EXTERNAL_MYSQL_USER="user"
 MYSQL_ROOT_PASSWORD="password"
 MYSQL_DATABASE="PortfolioDB"
 
+# MySQL
 cat models/engine/db.sql | sudo mysql -u root
 
+# Build the docker volume
+docker volume create mariadb_data
+
 # Connect container's MySQL db to the external MySQL
-docker run -it --rm -p 5000:5000 "$DOCKER_IMAGE" /bin/bash -c \
+docker run -it --rm -p 5000:5000 -v mariadb_data:/var/lib/mysql "$DOCKER_IMAGE" /bin/bash -c \
   "service mariadb start && 
   cat models/engine/db.sql | mysql -uroot &&\
-  cat slave.sql | mysql -uroot &&\
+  # cat slave.sql | mysql -uroot &&\
 
    mysql -h'$EXTERNAL_MYSQL_HOST' -u'$EXTERNAL_MYSQL_USER' -p'$MYSQL_ROOT_PASSWORD' \
         -e \"USE $MYSQL_DATABASE;\" && \
