@@ -52,11 +52,11 @@ class Recommendation(Base):
         Converts the Recommendation object into a dictionary.
         """
         return {
-            'recommendation_id': self.recommendation_id,
-            'user_id': self.user_id,
-            'item_id': self.item_id,
-            'item_type': self.item_type,
-            'name': self.name
+            "recommendation_id": self.recommendation_id,
+            "user_id": self.user_id,
+            "item_id": self.item_id,
+            "item_type": self.item_type,
+            "name": self.name
         }
     
     def __repr__(self):

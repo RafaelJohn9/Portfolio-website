@@ -75,10 +75,9 @@ class User(Base):
         Converts the User object to a dictionary.
         """
         return {
-            'userId': self.userId,
-            'userId': self.userId,
-            'username': self.username,
-            'email': self.email,
+            "userId": self.userId,
+            "username": self.username,
+            "email": self.email
         }
 
     def __repr__(self):

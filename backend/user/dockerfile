@@ -19,7 +19,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # installing gunicorn and tmux
 
 # Copy your Python application code
-COPY . .
 
 # install api_keys to environ var
 

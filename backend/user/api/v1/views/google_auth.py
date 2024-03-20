@@ -7,6 +7,7 @@ from api.v1.views import app_views
 import os
 from flask import request
 from flask_login import login_user
+from flask import jsonify
 
 oauth = OAuth(app_views)
 
@@ -31,7 +32,6 @@ def google_login():
         return google.authorize(callback=url_for('app_views.authorized',
                                 _external=True))
     except Exception as e:
-        print(f"An error occurred: {e}")
         return "An error occurred during Google login"
 
 
@@ -55,11 +55,10 @@ def authorized(resp):
                 storage.new(user)
                 storage.save()
             except Exception as e:
-                print(f"An error occurred: {e}")
+                return jsonify({"error": "An error occurred during user creation"}), 500
         login_user(user)
         return redirect(url_for('app_views.dashboard'))
     except Exception as e:
-        print(f"An error occurred: {e}")
         return "An error occurred during authorization"
 
 
@@ -68,5 +67,4 @@ def get_google_oauth_token():
     try:
         return session.get('google_token')
     except Exception as e:
-        print(f"An error occurred: {e}")
         return None

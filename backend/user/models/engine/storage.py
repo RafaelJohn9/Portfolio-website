@@ -14,6 +14,7 @@ from models.user import User
 from models.recommendation import Recommendation
 from sqlalchemy import delete
 from sqlalchemy import and_
+from werkzeug.security import generate_password_hash
 
 class DBStorage:
     """
@@ -81,10 +82,14 @@ class DBStorage:
         """
         a method that updates an item in the database
         """
+        # ...
+
         for key, value in kwargs.items():
             if hasattr(item, key):
+                if key == 'password':
+                    value = generate_password_hash(value)  # hashing password using werkzeug
                 setattr(item, key, value)
-        self.__session.add(item)
+        # self.__session.add(item)
         try:
             self.__session.commit()
         except IntegrityError as e:

@@ -8,6 +8,7 @@ from werkzeug.exceptions import Conflict
 from models.user import User
 from models import storage
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import DataError
 
 
 @app_views.route('/create', methods=['POST'], strict_slashes=False)
@@ -31,7 +32,11 @@ def create_user():
             return jsonify({'error': 'User with username already exists'}), 409
         else:
             return jsonify({'error': error_message}), 409
-
+    except DataError as e:
+        return jsonify({'error': 'Invalid data provided'}), 400
+    except Exception as e:
+        return jsonify({'error': 'An unexpected error occurred'}), 500
+    
     return jsonify({
                     'message': 'New user created',
                     'user': str(new_user.to_dict())
@@ -45,23 +50,26 @@ def update_user(userId):
     """
     Update a user and save the changes in the storage.
     """
-    data = request.get_json()
-    print(data)
-    user = storage.get(User, userId=userId)
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
-    for key, value in data.items():
-        if key in ['username', 'email', 'password']:
-            if key == 'username' and storage.get(User, username=value):
-                return jsonify({'error': 'Username already exists'}), 409
-            elif key == 'email' and storage.get(User, email=value):
-                return jsonify({'error': 'Email already exists'}), 409
-            else:
-                kwargs = {key: value}
-                storage.update(user, **kwargs)
-                print(user.to_dict())
-    storage.save()
-    return jsonify({'message': 'User updated', 'user': user.to_dict()}), 200
+    try:
+        data = request.get_json()
+        user = storage.get(User, userId=userId)
+        if not user:
+            return jsonify({'error': 'User not found'}), 404
+        for key, value in data.items():
+            if key in ['username', 'email', 'password']:
+                if key == 'username' and storage.get(User, username=value):
+                    return jsonify({'error': 'Username already exists'}), 409
+                elif key == 'email' and storage.get(User, email=value):
+                    return jsonify({'error': 'Email already exists'}), 409
+                else:
+                    kwargs = {key: value}
+                    storage.update(user, **kwargs)
+        storage.save()
+        return jsonify({'message': 'User updated', 'user': user.to_dict()}), 200
+    except DataError as e:
+        return jsonify({'error': 'Invalid data provided'}), 400
+    except Exception as e:
+        return jsonify({'error': 'An unexpected error occurred'}), 500
 
 
 @app_views.route('/delete/<string:userId>',

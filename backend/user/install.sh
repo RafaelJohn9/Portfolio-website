@@ -15,7 +15,7 @@ cat models/engine/db.sql | sudo mysql -u root
 docker volume create mariadb_data
 
 # Connect container's MySQL db to the external MySQL
-docker run -it --rm -p 5000:5000 -v mariadb_data:/var/lib/mysql "$DOCKER_IMAGE" /bin/bash -c \
+docker run -it --rm -p 5000:5000 -v mariadb_data:/var/lib/mysql -v ${PWD}:/app "$DOCKER_IMAGE" /bin/bash -c \
   "service mariadb start && 
   cat models/engine/db.sql | mysql -uroot &&\
   # cat slave.sql | mysql -uroot &&\
