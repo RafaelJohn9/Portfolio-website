@@ -19,8 +19,8 @@ cat models/engine/db.sql | sudo mysql -u root
 docker volume create mariadb_data
 
 # Connect container's MySQL db to the external MySQL
-docker run -d -p 5000:5000 -v mariadb_data:/var/lib/mysql -v ${PWD}:/app "$DOCKER_IMAGE" /bin/bash -c \
+docker run -d -t -p 5000:5000 -v mariadb_data:/var/lib/mysql -v ${PWD}:/app "$DOCKER_IMAGE" /bin/bash -c \
      "service mariadb start && 
      cat models/engine/db.sql | mysql -uroot &&\
-     source .api_keys.env && \
-     gunicorn -w 4 -b 0.0.0.0:5000 ./api/v1/app:app"
+     source .api_keys.env  && \
+     gunicorn -b 0.0.0.0:5000 --chdir ./api/v1 app:app"
