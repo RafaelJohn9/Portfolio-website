@@ -66,7 +66,7 @@ If a user with the provided email does not exist, the server will respond with a
 
 If the provided password does not match the user's password, the server will respond with a 401 Unauthorized status code and a JSON object containing an error message.
 
-On successful login, the server responds with a 302 Found status code and redirects the user to the dashboard.
+On successful login, the server responds with welcome message
 
 ## POST /logout
 

@@ -12,6 +12,7 @@ from sqlalchemy import create_engine
 from  models import Base
 import os
 from . import user
+import uuid
 
 class Recommendation(Base):
     """
@@ -21,19 +22,19 @@ class Recommendation(Base):
     __table_args__ = (UniqueConstraint('item_type', 'name', name='unique_item_per_type'),)
 
     recommendation_id = Column(Integer, primary_key=True, autoincrement=True)
-    item_id = Column(Integer)
+    item_id = Column(String(120), index=True)
     item_type = Column(Enum('book', 'music', 'movie', name='item_types'))
     name = Column(String(120))
-    user_id = Column(String(120), ForeignKey('users.userId'))
+    user_id = Column(String(120), ForeignKey('users.userId', ondelete='SET NULL', onupdate='CASCADE'), nullable=True)
     release_date = Column(String(20))
 
     user = relationship("User", back_populates="recommendations")
-    def __init__(self, user_id, item_id, item_type, name, release_date=""):
+    def __init__(self, user_id, item_type, name, release_date=""):
         """
         Initializes a Recommendation object with the provided user model.
         """
         self.user_id = user_id
-        self.item_id = item_id
+        self.item_id = str(uuid.uuid4())
         self.item_type = item_type
         self.name = name
         self.release_date = release_date

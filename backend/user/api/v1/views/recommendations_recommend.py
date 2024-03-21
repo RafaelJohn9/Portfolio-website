@@ -20,12 +20,12 @@ def recommend_music():
     Recommend music
     """
     if not current_user.is_authenticated:
-        return redirect(url_for('api_views.login'))
+        return jsonify({"error": "Unauthorized"}), 401
     try:
         data = request.json
-        track_name = data['track_name']
+        track_name = data['Track Name']
         item_type = data['item_type']
-        release_date = data['Release date']
+        release_date = data['release_date']
         user_id = current_user.userId
         new_recommendation = Recommendation(name=track_name, item_type=item_type, user_id=user_id, release_date=release_date)
         storage.new(new_recommendation)
@@ -41,7 +41,7 @@ def recommend_movie():
     Recommend movie
     """
     if not current_user.is_authenticated:
-        return redirect(url_for('api_views.login'))
+        return jsonify({"error": "Unauthorized"}), 401
     try:
         data = request.json
         title = data['title']
@@ -62,7 +62,7 @@ def recommend_book():
     Recommend book
     """
     if not current_user.is_authenticated:
-        return redirect(url_for('api_views.login'))
+        return jsonify({"error": "Unauthorized"}), 401
     try:
         data = request.json
         title = data['title']

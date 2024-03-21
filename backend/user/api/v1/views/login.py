@@ -38,7 +38,7 @@ def login():
 
     if user and check_password_hash(user.password, data.get('password')):
         login_user(user)
-        return redirect(url_for('app_views.dashboard', user_id=user.userId))
+        return jsonify({"message": "Logged in successfully"}), 200
 
     return jsonify({"message": "Invalid email or password"}), 401
 
@@ -49,7 +49,4 @@ def logout():
     Logs out a user
     """
     logout_user()
-    return redirect(
-            url_for('app_views.homepage',
-                    message="Logged out successfully")
-            )
+    return jsonify({"message": "Logged out successfully"}), 200

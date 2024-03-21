@@ -11,7 +11,7 @@ password = "password"
 
 
 user = User(username=name, email=email, password=password)
-recommendation = Recommendation(user_id=user.userId, item_id=1, item_type="music", name="The Matrix")
+recommendation = Recommendation(user_id=user.userId, item_type="music", name="The Matrix")
 print(user)
 print(recommendation)
 storage.new(user)
