@@ -1,0 +1,11 @@
+FROM ubuntu:latest
+
+# Create a new user 'anonymous' and switch to it
+RUN useradd -m anonymous
+USER anonymous
+
+# Copy your custom shell executable into the container
+COPY --chown=anonymous ./simple_shell/myshell /myshell
+
+# Set the entrypoint for the container
+CMD ["/bin/bash"]
