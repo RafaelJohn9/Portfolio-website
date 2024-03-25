@@ -2,6 +2,7 @@ import React from "react";
 import FrontPage from "./components/FrontPage";
 import NavBar from "./components/NavBar";
 import About from "./components/About";
+import Skill from "./components/Skill";
 import './App.css'
 
 
@@ -19,6 +20,11 @@ const App = () => {
       {/* Second Section */}
       <div className=" h-full min-h-full min-w-full w-full">
         <About />
+      </div>
+
+      {/* Third Section */}
+      <div className=" h-full min-h-full min-w-full w-full">
+        <Skill />
       </div>
     </div>
   )

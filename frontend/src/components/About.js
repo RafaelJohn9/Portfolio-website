@@ -28,9 +28,9 @@ const About = () => {
             ref={ref}
             animate={controls}
             className="h-full w-full flex items-center justify-center"
-            initial={{ scale: 0.8 }}
+            initial={{ scale: 0.7 }}
         >
-            <div className="lg:px-64">
+            <div className="lg:px-64 font-custom">
                 <h1 className='text-center font-extrabold text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl'>About me</h1>
                 <p className="text-center font-sans text-lg sm:text-lg md:text-xl lg:text-xl xl:text-xl">
                 Am John M Kagunda, 

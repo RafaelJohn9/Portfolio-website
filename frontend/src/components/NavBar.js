@@ -7,7 +7,7 @@ const NavBar = () => {
     const toggleOpen = () => setIsOpen(!isOpen);
 
     return (
-        <nav className="bg-gray-800 fixed w-full top-0 z-50">
+        <nav className="fixed w-full top-0 z-50 bg-gradient-to-r from-green-800 to-green-900">
             <div className="max-w-7xl mr-auto pr-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
