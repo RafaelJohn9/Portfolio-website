@@ -11,3 +11,23 @@
     animation: fade-in 1s ease-out forwards;
   }
 
+/* Tailwind CSS */
+.glow-ball {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: transparent; 
+  animation: glow 2s ease-in-out infinite alternate;
+  opacity: 1;
+  filter: blur(50px); /* Add this line */
+}
+
+@keyframes glow {
+  from {
+    background-color: rgba(230, 8, 8, 0.5);
+  }
+  to {
+    background-color: rgb(89, 168, 16);
+  }
+}
+

@@ -1,0 +1,38 @@
+/* Tailwind CSS */
+.glow-ball-purple {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: transparent; 
+    animation: glow-purple 2s ease-in-out infinite alternate;
+    opacity: 10%;
+    filter: blur(50px); /* Add this line */
+  }
+  
+  .glow-ball-green {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background-color: transparent; 
+    animation: glow-green 2s ease-in-out infinite alternate;
+    opacity: 30%;
+    filter: blur(50px); /* Add this line */
+  }
+  
+  @keyframes glow-purple {
+    from {
+      background-color: #8b129b;
+    }
+    to {
+      background-color:#5e0666;
+    }
+  }
+
+  @keyframes glow-green {
+    from {
+      background-color: #355c29;
+    }
+    to {
+      background-color:#052505;
+    }
+  }
