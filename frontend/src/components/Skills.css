@@ -1,0 +1,31 @@
+/* Define the animation */
+@keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100% + 100vw)); /* Adjust -16px to match your gap */
+    }
+  }
+  
+  /* Apply the animation to the container */
+  .animate-scroll {
+    animation: scroll 20s linear infinite alternate; /* Adjust the duration (10s) as needed */
+  }
+
+  .scrolling-container {
+    display: flex;
+    overflow-x: scroll;
+    white-space: nowrap; /* Prevents wrapping of child elements */
+    animation: scroll 10s linear infinite alternate; /* Adjust duration (10s) as needed */
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100% + 100vw));
+    }
+  }
+  
