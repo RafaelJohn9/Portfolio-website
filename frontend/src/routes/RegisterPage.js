@@ -2,7 +2,6 @@ import React from 'react';
 import NavBar from '../components/CommonComponents/NavBar';
 import BackGroundImage from '../imgs/login_background_image.jpg'
 import GoogleLogo from '../imgs/Google_logo.svg'
-import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
     return (
@@ -22,20 +21,22 @@ const LoginPage = () => {
                         </label>
                         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************"/>
                     </div>
+                    <div className="mb-6">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                           Confirm Password
+                        </label>
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************"/>
+                    </div>
                     <div className="flex items-center justify-between">
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                            Sign In
+                            Sign Up
                         </button>
+                        <p className='font-custome font-extrabold'>&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;use</p>
                         <button className=" hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                             <img src={GoogleLogo} alt="Google logo" className="w-6 h-6 hover:text-red-600 transition-colors duration-200"/>
                         </button>
                     </div>
                 </form>
-                <div className="mt-4">
-                    <Link to="/register" className="text-black hover:text-green-400 transition-colors duration-200">
-                        Don't have an account yet? Register
-                    </Link>
-                </div>
             </div>
         </div>
     );

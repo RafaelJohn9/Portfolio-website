@@ -31,15 +31,16 @@ const About = () => {
             <div className="lg:px-64 font-custom">
                 <h1 className='text-center font-extrabold text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl'>About me</h1>
                 <p className="text-center font-sans text-lg sm:text-lg md:text-xl lg:text-xl xl:text-xl">
-                I am John M Kagunda, 
-                I am a junior fullstack developer fueled by a passion for crafting innovative solutions in the digital realm. 
-                With a keen eye for detail and a thirst for knowledge, 
-                I dive into the intricacies of both front-end and back-end development, 
-                striving for seamless user experiences and robust functionality. 
-                Equipped with a foundation in coding languages and frameworks, 
-                I am dedicated to honing my skills and staying abreast of emerging technologies to create impactful applications. 
-                My commitment to continuous learning and problem-solving propels me forward on my journey to becoming a proficient 
-                and versatile developer in the ever-evolving landscape of technology.
+                I'm John M Kagunda, 
+                a Junior FullStack Developer specializing in backend technologies. 
+                I'm passionate about creating innovative solutions in the digital world. 
+                I pay close attention to detail and am always eager to learn. 
+                I work on both front-end and back-end development to 
+                ensure smooth user experiences and strong functionality. 
+                I have a solid foundation in coding languages and frameworks 
+                and am committed to improving my skills and staying updated on new technologies. 
+                My dedication to learning and problem-solving drives me towards becoming
+                a skilled and adaptable developer in the constantly changing tech industry.
                 </p>
             </div>
         </motion.div>
