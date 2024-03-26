@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+An example of an existing user
+"""
 
 from models.user import User
 from models.recommendation import Recommendation

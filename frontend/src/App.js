@@ -1,34 +1,26 @@
-import React from "react";
-import FrontPage from "./components/FrontPage";
-import NavBar from "./components/NavBar";
-import About from "./components/About";
-import Skills from "./components/Skill";
-import './App.css'
+import React from 'react';
+import {createBrowserRouter, RouterProvider}from 'react-router-dom';
+import HomePage from './routes/HomePage';
+import Page404 from './routes/404Page';
+import LoginPage from './routes/LoginPage'
 
+function App() {
+    const router = createBrowserRouter([{
+        path: '/',
+        element: <HomePage />,
+        errorElement: <Page404 />
+    },{
+        path: '/login',
+        element: <LoginPage />,
+    }
+]);
 
-const App = () => {
-  return (
-<div className="h-screen w-screen bg-white overflow-y-auto overflow-x-hidden bg-gradient-to-tr from-green-900 to-green-100">
-      {/* NavBar */}
-      <NavBar />                        
-      
-      {/* First Section */}
-      <div className="h-full w-full min-h-full min-w-full">
-        <FrontPage />
-      </div>
-      
-      {/* Second Section */}
-      <div className=" h-full min-h-full min-w-full w-full">
-        <About />
-      </div>
-
-      {/* Third Section */}
-      <div className="h-full min-h-full min-w-full w-full overflow-scroll">
-        <Skills />
-      </div>
-        </div>
-      )
+    return (
+        <RouterProvider router={router}>
+            {router}
+        </RouterProvider>
+    );
 }
 
-
 export default App;
+

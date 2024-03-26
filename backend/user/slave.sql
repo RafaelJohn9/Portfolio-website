@@ -1,3 +1,4 @@
+-- A SQL script  that is used to create a slave db and configuration of its files
 CHANGE MASTER TO
   MASTER_HOST='external_mysql_host',
   MASTER_PORT=3306,

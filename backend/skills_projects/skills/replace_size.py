@@ -15,8 +15,11 @@ def replace_size():
 
         # Convert keys to integers and sort
         size_keys = ['sm', 'md', 'lg', 'xl', '2xl']
-        for i, key in enumerate(images.keys()):
-            sorted_images[size_keys[i]] = images[key]
+        for i, key in enumerate(sorted(map(int, images.keys()))):
+            if i < len(size_keys):
+                sorted_images[size_keys[i]] = images[str(key)]
+            else:
+                print(f"Warning: No size key for index {i}. Skipping.")
 
         # Replace the old 'images' dictionary with the new one
         item['images'] = sorted_images

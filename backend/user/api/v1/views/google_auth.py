@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Used in Google Oauth
+"""
 from flask import redirect, url_for, session
 from flask_oauthlib.client import OAuth
 from models import storage
@@ -28,6 +31,9 @@ google = oauth.remote_app(
 
 @app_views.route('/google')
 def google_login():
+    """
+    google login
+    """
     try:
         return google.authorize(callback=url_for('app_views.authorized',
                                 _external=True))
@@ -38,6 +44,9 @@ def google_login():
 @app_views.route('/google/authorized')
 @google.authorized_handler
 def authorized(resp):
+    """
+    authorization handler
+    """
     try:
         if resp is None:
             return 'Access denied: reason=%s error=%s' % (
@@ -55,7 +64,10 @@ def authorized(resp):
                 storage.new(user)
                 storage.save()
             except Exception as e:
-                return jsonify({"error": "An error occurred during user creation"}), 500
+                return jsonify(
+                                {"error":
+                                    "An error occurred during user creation"}
+                                ), 500
         login_user(user)
         return redirect(url_for('app_views.dashboard'))
     except Exception as e:
@@ -64,6 +76,9 @@ def authorized(resp):
 
 @google.tokengetter
 def get_google_oauth_token():
+    """
+    Gets the google oauth token
+    """
     try:
         return session.get('google_token')
     except Exception as e:

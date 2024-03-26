@@ -2,6 +2,7 @@
 import os
 import requests
 
+
 def fetch_books(bookname, **kwargs):
     api_key = os.getenv('BOOK_API')
     base_url = "https://www.googleapis.com/books/v1/volumes"
@@ -25,10 +26,10 @@ def fetch_books(bookname, **kwargs):
             "cover_images": item['volumeInfo'].get('imageLinks')
         }
         books.append(book)
-        
+
     if not kwargs:
         return books
-    
+
     precise_books = []
     for book in books:
         match = all(book.get(key) == value for key, value in kwargs.items())

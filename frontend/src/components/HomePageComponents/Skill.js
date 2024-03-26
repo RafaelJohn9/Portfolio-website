@@ -1,5 +1,5 @@
 import React from 'react';
-import getSkills from '../middleware/skills';
+import getSkills from '../../middleware/skills';
 import './Skills.css';
 import InfiniteHorizontalScroll from './InfiniteHorizontalScroll'
 

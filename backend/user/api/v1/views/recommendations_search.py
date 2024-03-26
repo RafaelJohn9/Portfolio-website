@@ -13,6 +13,7 @@ from flask_login import login_required
 from flask_login import current_user
 from flask import redirect, url_for
 
+
 @app_views.route('/music/search', methods=['POST'])
 def search_music():
     """
@@ -24,7 +25,8 @@ def search_music():
         return jsonify(response), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-    
+
+
 @app_views.route('/movie/search', methods=['POST'])
 def search_movie():
     """

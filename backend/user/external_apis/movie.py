@@ -28,8 +28,8 @@ def fetch_movies(movie_name, **kwargs):
     if response.status_code == 200:
         # Get the JSON data from the response
         data = json.loads(response.text)
-        
         movies = []
+
         for movie in data['results']:
             # Create a dictionary to store movie details
             movie_details = {
@@ -44,7 +44,7 @@ def fetch_movies(movie_name, **kwargs):
         if not kwargs:
             return movies
         precise_movies = []
-        
+
         for movie in movies:
             if all(movie.get(key) == value for key, value in kwargs.items()):
                 precise_movies.append(movie)
@@ -52,7 +52,8 @@ def fetch_movies(movie_name, **kwargs):
 
     else:
         return None
-    
+
+
 if __name__ == "__main__":
     movie_name = "Inception"
     movie_details = fetch_movies(movie_name, release_date="2001-10-26")

@@ -36,7 +36,7 @@ def create_user():
         return jsonify({'error': 'Invalid data provided'}), 400
     except Exception as e:
         return jsonify({'error': 'An unexpected error occurred'}), 500
-    
+
     return jsonify({
                     'message': 'New user created',
                     'user': str(new_user.to_dict())
@@ -65,7 +65,9 @@ def update_user(userId):
                     kwargs = {key: value}
                     storage.update(user, **kwargs)
         storage.save()
-        return jsonify({'message': 'User updated', 'user': user.to_dict()}), 200
+        return jsonify(
+                       {'message': 'User updated', 'user': user.to_dict()}
+                       ), 200
     except DataError as e:
         return jsonify({'error': 'Invalid data provided'}), 400
     except Exception as e:

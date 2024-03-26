@@ -5,17 +5,28 @@ import requests
 from requests.auth import HTTPBasicAuth
 from requests_oauthlib import OAuth2Session
 
+
 def fetch_tracks(track_name, **kwargs):
     client_id = os.environ['SPOTIFY_CLIENT_ID']
     client_secret = os.environ['SPOTIFY_CLIENT_SECRET']
-    auth = HTTPBasicAuth(client_id, client_secret)
-    response = requests.post('https://accounts.spotify.com/api/token', auth=auth, data={'grant_type': 'client_credentials'})
+    auth = HTTPBasicAuth(
+                         client_id,
+                         client_secret
+                         )
+    response = requests.post(
+                              'https://accounts.spotify.com/api/token',
+                              auth=auth,
+                              data={'grant_type': 'client_credentials'}
+                              )
     response.raise_for_status()
     access_token = response.json()['access_token']
 
     headers = {'Authorization': f'Bearer {access_token}'}
     params = {'q': track_name, 'type': 'track'}
-    response = requests.get('https://api.spotify.com/v1/search', headers=headers, params=params)
+    response = requests.get(
+                            'https://api.spotify.com/v1/search',
+                            headers=headers,
+                            params=params)
     response.raise_for_status()
 
     tracks = []
@@ -38,8 +49,6 @@ def fetch_tracks(track_name, **kwargs):
         if all(track.get(key) == value for key, value in kwargs.items()):
             precise_tracks.append(track)
     return precise_tracks
-
-
 
 
 if __name__ == "__main__":
