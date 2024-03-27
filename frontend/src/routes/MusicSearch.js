@@ -1,38 +1,52 @@
 import React, { useState } from 'react';
 import BackGroundMusicImage from '../imgs/BackGroundMusic.jpg'
 import NavBar from '../components/CommonComponents/NavBar';
+import { useNavigate } from 'react-router-dom';
 
 
 const MusicSearch = () => {
     const [search, setSearch] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
-    const handleSearch = (event) => {
-        event.preventDefault();
-        // Handle your search logic here
-        console.log(search);
+    const handleSearchChange = (event) => {
+        setSearch(event.target.value);
+    };
+
+    const handleSearch = () => {
+        if (search === '') {
+            setErrorMessage('Please fill out this field');
+        } else {
+            // handle search here
+            setErrorMessage('');
+            let formattedSearchTerm = search.split(' ').join('-');
+            navigate(`/music-search/${formattedSearchTerm}`);
+        }
+    };
+
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleSearch();
+        }
     };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${BackGroundMusicImage})` }}>
             <NavBar />
-            <form onSubmit={handleSearch} className="w-full max-w-sm">
-                <div className="flex items-center border-b-2 border-teal-500 py-2">
-                    <input
-                        className="appearance-none bg-transparent border-none w-full text-black mr-3 py-1 px-2 leading-tight lg:text-2xl focus:outline-none"
-                        type="text" required
-                        placeholder="Search Music"
-                        aria-label="Search Music"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                    <button
-                        className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
-                        type="submit"
-                    >
-                        Search
-                    </button>
-                </div>
-            </form>
+            <div className="flex mt-52 md:mt-64 rounded-lg border-0 md:w-1/2 sm:w-full lg:mt-96">
+                <input
+                    type="text" required
+                    value={search}
+                    onChange={handleSearchChange}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Search Music"
+                    className="w-full px-4 py-2 text-lg bg-black rounded-full outline-none hover:bg-grey-500 text-white"
+                />
+                <button onClick={handleSearch} className="px-4 py-2 hover:bg-blue-950  text-white  rounded-full bg-black">
+                    Search
+                </button>
+                {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+            </div>
         </div>
     );
 };
