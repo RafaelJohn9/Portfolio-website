@@ -40,9 +40,9 @@ const MusicSearch = () => {
                     onChange={handleSearchChange}
                     onKeyPress={handleKeyPress}
                     placeholder="Search Music"
-                    className="w-full px-4 py-2 text-lg bg-black rounded-full outline-none hover:bg-grey-500 text-white"
+                    className="w-full px-4 py-2 text-lg  rounded-full outline-none bg-gray-800 text-white"
                 />
-                <button onClick={handleSearch} className="px-4 py-2 hover:bg-blue-950  text-white  rounded-full bg-black">
+                <button onClick={handleSearch} className="px-4 py-2 hover:bg-gray-950  text-white  rounded-full bg-gray-800">
                     Search
                 </button>
                 {errorMessage && <p className="text-red-500">{errorMessage}</p>}

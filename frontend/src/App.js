@@ -10,6 +10,7 @@ import BookSearch from './routes/BookSearch';
 import AboutPage from './routes/AboutPage';
 import MoviesSearched from './routes/MoviesSearched';
 import MusicSearched from './routes/MusicSearched';
+import BooksSearched from './routes/BooksSearched';
 
 function App() {
     const router = createBrowserRouter([
@@ -54,6 +55,10 @@ function App() {
         },{
             path: '/music-search/:query',
             element: <MusicSearched />,
+            errorElement: <Page404 />,
+        },{
+            path: '/books-search/:query',
+            element: <BooksSearched />,
             errorElement: <Page404 />,
         },
     ]);

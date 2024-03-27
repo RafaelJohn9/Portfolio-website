@@ -6,17 +6,20 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const GetMovies = ({ query }) => {
+    const [loading, setLoading] = useState(true);
     const [movies, setMovies] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchMovies = async () => {
+            setLoading(true);
             try {
                 const data = await moviesSearch(query);
                 setMovies(data);
             } catch (error) {
                 setError(error.message);
             }
+            setLoading(false);
         };
 
         fetchMovies();
@@ -25,6 +28,15 @@ const GetMovies = ({ query }) => {
     if (error) {
         return <div>Error: {error}</div>;
     }
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (!query) {
+        return null;
+    }
+
 
     return (
         <div className='pl-10 h-full w-full text-white italic font-custom flex flex-wrap gap-32'>
