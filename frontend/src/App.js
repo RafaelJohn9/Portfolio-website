@@ -5,6 +5,9 @@ import Page404 from './routes/404Page';
 import LoginPage from './routes/LoginPage'
 import RegisterPage from './routes/RegisterPage'
 import MoviesSearch from './routes/MoviesSearch';
+import MusicSearch from './routes/MusicSearch';
+import BookSearch from './routes/BookSearch';
+import AboutPage from './routes/AboutPage';
 
 function App() {
     const router = createBrowserRouter([{
@@ -20,6 +23,15 @@ function App() {
     },{
         path: '/movies-search',
         element: <MoviesSearch />,
+    },{
+        path: '/music-search',
+        element: <MusicSearch />,
+    },{
+        path: '/books-search',
+        element: <BookSearch />,
+    },{
+        path: '/about',
+        element: <AboutPage />,
     },
 ]);
 
