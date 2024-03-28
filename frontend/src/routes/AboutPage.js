@@ -11,13 +11,13 @@ const AboutPage = () => {
             <h2 className="mt-2 text-lg text-black font-medium">FullStack Software Developer</h2>
             <h3>FAQs</h3>
             <div>
-                <h4 className='font-extrabold'>What is your favorite programming language?</h4>
-                <p className='italic pl-10'>Python</p>
+                <h4 className='font-extrabold'>What is your favorite programming language and why?</h4>
+                <p className='italic pl-10'>Python, It was my first programming language😅</p>
                 <br />
                 <h4 className='font-extrabold'>How did you acquire your skills?</h4>
                 <p className='italic pl-10'>
-                    I acquired most of my skills in a 12-month Software Engineering Program known as  
-                    <a href='https://www.alxafrica.com' target='_blank' rel="noreferrer">  alxafrica </a>
+                    I acquired most of my skills in a 12-month Software Engineering Program in  
+                    <a href='https://www.alxafrica.com' target='_blank' rel="noreferrer" className='text-red-800'>  alxafrica </a>
                     which is in association with Holberton School of Technology
                 </p>
                 <br />
