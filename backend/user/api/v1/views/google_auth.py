@@ -69,7 +69,7 @@ def authorized(resp):
                                     "An error occurred during user creation"}
                                 ), 500
         login_user(user)
-        return redirect(url_for('app_views.dashboard'))
+        return redirect('http://localhost:3000/')
     except Exception as e:
         return "An error occurred during authorization"
 
