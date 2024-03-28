@@ -107,7 +107,7 @@ const BooksSearched = () => {
 
     // Render the component
     return (
-        <div className="h-screen min-h-full w-screen min-w-full overflow-x-hidden  bg-gray-300 text-black">
+        <div className="h-screen min-h-full w-screen min-w-full overflow-x-hidden  bg-black text-white">
             <NavBar />
             <div className="w-full h-full">
                 <div className="flex rounded-lg border-0 md:w-1/2 sm:w-full pt-24 justify-center items-center">

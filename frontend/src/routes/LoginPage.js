@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import NavBar from '../components/CommonComponents/NavBar';
 import BackGroundImage from '../imgs/login_background_image.jpg';
 import GoogleLogo from '../imgs/Google_logo.svg';
+import EyeIcon from '../imgs/eye.svg';
+import EyeOffIcon from '../imgs/eyeOff.svg';
 import { Link, useNavigate } from 'react-router-dom';
-import { googleLogin, login } from '../middleware/user';
+import { login } from '../middleware/user';
+import changeLoginStatus from '../middleware/authentication';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -16,7 +19,8 @@ const LoginPage = () => {
         try {
             const response = await login({email, password});
             if (response.status === 200) {
-                // Navigate back to the homepage
+                changeLoginStatus().setLoginStatus(true);
+                // Navigate back to the homepage if login is successful
                 navigate('/');
             } else if (response.status === 401) {
                 setError('Invalid password. Please try again.');
@@ -35,6 +39,18 @@ const LoginPage = () => {
                 setError('An error occurred while logging in.');
             }
         }
+    };
+
+    const handleGoogleLogin = () => {
+        changeLoginStatus().setLoginStatus(true);
+        // Redirect to Google login page
+        window.location.href = 'http://localhost:5000/api/v1/user/google';
+    };
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     };
 
     return (
@@ -61,16 +77,21 @@ const LoginPage = () => {
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                             Password
                         </label>
+                        <div className='flex shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className='outline-none'
                             id="password"
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             required
                             placeholder="******************"
                             maxLength="100"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        <button onClick={togglePasswordVisibility} type="button" className='w-2/12' >
+                            <img src={showPassword ? EyeOffIcon : EyeIcon} alt="toggle visibility" />
+                        </button>
+                        </div>
                     </div>
                     <div className="flex items-center justify-between">
                         <button
@@ -79,9 +100,9 @@ const LoginPage = () => {
                         >
                             Sign In
                         </button>
-                        <button  
-                            className="hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
-                            onClick={() => window.location.href='http://localhost:5000/api/v1/user/google'} 
+                        <button
+                            className="hover:bg-gray-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            onClick={handleGoogleLogin}
                             type="button"
                         >
                             <img src={GoogleLogo} alt="Google logo" className="w-6 h-6 hover:text-red-600 transition-colors duration-200"/>

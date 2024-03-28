@@ -38,27 +38,6 @@ async function login(user) {
     }
 }
 
-async function googleLogin() {
-    try {
-        // Make a request to your server to initiate the OAuth flow
-        const response = await axios.get('http://localhost:5000/api/v1/user/google');
-        
-        // Instead of redirecting here, you should handle the response from your server
-        // Your server should handle the redirection to Google's OAuth endpoint
-        // and then handle the redirection back after authorization
-        
-        // Redirecting here is not suitable for OAuth flow
-        // window.location.href = response.data;
 
-        // Instead, you should handle redirections in your server's response
-        // After successful authorization, your server should redirect the user back to your application
 
-        // Add additional logic if needed to handle response from your server
-        console.log(response.data);
-    } catch (error) {
-        console.error(error);
-        return { status: 500, message: 'Server error' };
-    }
-}
-
-export { createUser, login, googleLogin };
+export { createUser, login };
