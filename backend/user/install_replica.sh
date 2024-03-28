@@ -8,14 +8,19 @@ EXTERNAL_MYSQL_USER="user"
 MYSQL_ROOT_PASSWORD="password"
 MYSQL_DATABASE="PortfolioDB"
 
-# docker rmi "$DOCKER_IMAGE":latest
+# Check if the Docker image exists
+if [[ "$(docker images -q $DOCKER_IMAGE 2> /dev/null)" == "" ]]; then
+     # Docker image does not exist, so build it
+     docker build -t "$DOCKER_IMAGE" .
+else
+     echo "Docker image $DOCKER_IMAGE already exists. Continuing run..."
+fi
 
-# docker build -t "$DOCKER_IMAGE" .
 
 
 
 # Connect container's MySQL db to the external MySQL
-sudo docker run -d -t -p 5000:5000 -v /mnt/docker_volumes:/var/lib/mysql -v ${PWD}:/app "$DOCKER_IMAGE" /bin/bash -c \
+docker run -d -t -p 5000:5000 -v /mnt/docker_volumes:/var/lib/mysql -v ${PWD}:/app "$DOCKER_IMAGE" /bin/bash -c \
      "service mariadb start && 
      cat models/engine/db.sql | mysql -uroot &&\
      source .api_keys.env  && \
