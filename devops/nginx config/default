@@ -7,6 +7,11 @@ server {
 
     server_name _;
 
+    root /home/johnmkagunda/Portfolio-website/frontend/build;
+
+
+    include mime.types;
+
     # SSL configuration
     #
     # listen 443 ssl default_server;
@@ -30,69 +35,25 @@ server {
     #	deny all;
     #}
 
-    root /var/www/html;
-
     # Add index.php to the list if you are using PHP
     index index.html index.htm index.nginx-debian.html;
 
     location / {
-        proxy_pass http://localhost:3000;
+        try_files $uri @proxy;
+    }
+
+    location @proxy {
+
+	proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        try_files $uri $uri/ @404;
+        proxy_cache_bypass $http_upgrade;
     }
 
-    location /login {
-        proxy_pass http://localhost:3000/login;
-        try_files $uri $uri/ @404;
-    }
-
-    location /register {
-        proxy_pass http://localhost:3000/register;
-        try_files $uri $uri/ @404;
-    }
-
-    location /movies-search {
-        proxy_pass http://localhost:3000/movies-search;
-        try_files $uri $uri/ @404;
-    }
-
-    location /music-search {
-        proxy_pass http://localhost:3000/music-search;
-        try_files $uri $uri/ @404;
-    }
-
-    location /books-search {
-        proxy_pass http://localhost:3000/books-search;
-        try_files $uri $uri/ @404;
-    }
-
-    location /about {
-        proxy_pass http://localhost:3000/about;
-        try_files $uri $uri/ @404;
-    }
-
-    location ~ ^/movies-search/(.*)$ {
-        proxy_pass http://localhost:3000/movies-search/$1;
-        try_files $uri $uri/ @404;
-    }
-
-    location ~ ^/music-search/(.*)$ {
-        proxy_pass http://localhost:3000/music-search/$1;
-        try_files $uri $uri/ @404;
-    }
-
-    location ~ ^/books-search/(.*)$ {
-        proxy_pass http://localhost:3000/books-search/$1;
-        try_files $uri $uri/ @404;
-    }
-
-    location @404 {
-        proxy_pass http://localhost:3000;
-    }
-    
-    location @404 {
-        proxy_pass http://localhost:3000/404;
-    }
-
+   # location /static/ {
+        # Path to the static files directory
+    #    alias /home/johnmkagunda/Portfolio-website/frontend/build/static/;
+    #}
 }
