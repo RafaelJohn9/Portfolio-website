@@ -14,7 +14,10 @@ async function createUser(user) {
     }
 
     try {
-        const response = await axios.post('http://localhost:5000/api/v1/user/create', { username, email, password });
+        const instance = axios.create({
+            baseURL: 'http://localhost:5000/api/v1/user'
+        });
+        const response = await instance.post('/create', { username, email, password });
 
         if (response.status === 201) {
             return { status: 201, message: 'Successfully created user' };

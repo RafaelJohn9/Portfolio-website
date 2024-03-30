@@ -2,7 +2,10 @@ import axios from 'axios';
 
 async function getSkills() {
     try {
-        const response = await axios.get('http://localhost:5001/api/v1/skills');
+        const instance = axios.create({
+            baseURL: 'http://localhost:5001/api/v1'
+        });
+        const response = await instance.get('/skills');
         const data = response.data;
         for (let key in data) {
             if (data[key].images) {

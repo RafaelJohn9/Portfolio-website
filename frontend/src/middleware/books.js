@@ -2,9 +2,11 @@ import axios from 'axios';
 
 async function booksSearch(bookName) {
     try {
-        const response = await axios.post('http://0.0.0.0:5000/api/v1/user/book/search',
-            { book_name: bookName },
-        );
+        const instance = axios.create({
+            baseURL: 'http://localhost:5000/api/v1/user/book'
+        });
+
+        const response = await instance.post('/search', { book_name: bookName });
 
         // If response status is 200, return the JSON data
         if (response.status === 200) {

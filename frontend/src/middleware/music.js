@@ -2,9 +2,11 @@ import axios from 'axios';
 
 async function musicSearch(musicName) {
     try {
-        const response = await axios.post('http://0.0.0.0:5000/api/v1/user/music/search',
-            { music_name: musicName },
-        );
+        const instance = axios.create({
+            baseURL: 'http://localhost:5000/api/v1/user/music'
+        });
+
+        const response = await instance.post('/search', { music_name: musicName });
 
         // If response status is 200, return the JSON data
         if (response.status === 200) {

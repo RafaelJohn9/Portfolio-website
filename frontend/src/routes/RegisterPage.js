@@ -8,6 +8,7 @@ import {createUser, login} from '../middleware/user';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import changeLoginStatus from '../middleware/authentication';
+import axios from 'axios';
 
 const LoginPage = () => {
     const [username, setUsername] = React.useState("");
@@ -20,7 +21,11 @@ const LoginPage = () => {
     const handleGoogleLogin = () => {
         changeLoginStatus().setLoginStatus(true);
         // Redirect to Google login page
-        window.location.href = 'http://localhost:5000/api/v1/user/google';
+        axios.create({
+            baseURL: 'http://localhost:5000/api/v1/user/google'
+        }).then(res => {
+            window.location.href = res.config.baseURL;
+        });
     };
 
     const handleSubmit = (event) => {
