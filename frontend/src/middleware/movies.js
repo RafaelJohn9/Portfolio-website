@@ -3,7 +3,7 @@ import axios from 'axios';
 async function moviesSearch(movieName) {
     try {
         const instance = axios.create({
-            baseURL: 'http://localhost:5000/api/v1/user/movie'
+            baseURL: 'https://www.johnmkagunda.me/api/v1/user/movie'
         });
 
         const response = await instance.post('/search', { movie_name: movieName });

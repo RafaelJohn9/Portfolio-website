@@ -45,7 +45,7 @@ const LoginPage = () => {
         changeLoginStatus().setLoginStatus(true);
         // Redirect to Google login page
         changeLoginStatus().setLoginStatus(true);
-        window.location.href = 'http://localhost:5000/api/v1/user/google';
+        window.location.href = 'https://www.johnmkagunda.me/api/v1/user/google';
     };
 
     const [showPassword, setShowPassword] = useState(false);

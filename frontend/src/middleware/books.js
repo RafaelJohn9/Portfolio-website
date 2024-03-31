@@ -3,7 +3,7 @@ import axios from 'axios';
 async function booksSearch(bookName) {
     try {
         const instance = axios.create({
-            baseURL: 'http://localhost:5000/api/v1/user/book'
+            baseURL: 'https://www.johnmkagunda.me/api/v1/user/book'
         });
 
         const response = await instance.post('/search', { book_name: bookName });

@@ -3,7 +3,7 @@ import axios from 'axios';
 async function musicSearch(musicName) {
     try {
         const instance = axios.create({
-            baseURL: 'http://localhost:5000/api/v1/user/music'
+            baseURL: 'https://www.johnmkagunda.me/api/v1/user/music'
         });
 
         const response = await instance.post('/search', { music_name: musicName });

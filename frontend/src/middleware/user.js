@@ -15,7 +15,7 @@ async function createUser(user) {
 
     try {
         const instance = axios.create({
-            baseURL: 'http://localhost:5000/api/v1/user'
+            baseURL: 'https://www.johnmkagunda.me/api/v1/user'
         });
         const response = await instance.post('/create', { username, email, password });
 
@@ -37,7 +37,7 @@ let authToken = ''; // Variable to store the token
 async function login(user) {
     const { email, password } = user;
     try {
-        const response = await axios.post('http://localhost:5000/api/v1/user/login', { email, password });
+        const response = await axios.post('https://www.johnmkagunda.me/api/v1/user/login', { email, password });
         
         // Assuming the server responds with a token
         authToken = response.data.token;

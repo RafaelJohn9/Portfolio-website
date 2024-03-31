@@ -3,7 +3,7 @@ import axios from 'axios';
 async function getSkills() {
     try {
         const instance = axios.create({
-            baseURL: 'http://localhost:5001/api/v1'
+            baseURL: 'https://www.johnmkagunda.me/api/v1'
         });
         const response = await instance.get('/skills');
         const data = response.data;
