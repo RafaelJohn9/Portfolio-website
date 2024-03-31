@@ -43,7 +43,7 @@ const About = () => {
                 My dedication to learning and problem-solving drives me towards becoming
                 a skilled and adaptable developer in the constantly changing tech industry.
                 </p>
-                <h2 className="italic font-semibold  text-center mt-10">For more check <Link to="/about" className='text-red-600 hover:text-red-800'>FAQS</Link></h2>
+                <h2 className="italic font-semibold  text-center mt-10">For more check <Link to="/about" className='text-red-600 hover:text-red-800'>FAQs</Link></h2>
             </div>
         </motion.div>
     );

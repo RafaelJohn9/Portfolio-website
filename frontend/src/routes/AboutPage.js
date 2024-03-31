@@ -6,7 +6,7 @@ const AboutPage = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gradient-to-tr from-green-900 to-green-100">
             <NavBar />
-            <img src={ProfilePhoto} alt="Profile" className="rounded-full h-64 w-64 md:h-96 md:w-96" />
+            <img src={ProfilePhoto} alt="Profile" className="rounded-full h-64 w-64 md:h-96 md:w-96 mt-48" />
             <h1 className="mt-6 text-2xl font-semibold text-black  font-custom">John Kagunda</h1>
             <h2 className="mt-2 text-lg text-black font-medium">FullStack Software Developer</h2>
             <h3>FAQs</h3>

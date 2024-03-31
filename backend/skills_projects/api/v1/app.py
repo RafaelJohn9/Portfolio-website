@@ -10,7 +10,22 @@ from flask_cors import CORS
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*", "supports_credentials": True}})
 
-
+@app.after_request
+def add_cors_headers(response):
+    """
+    Add CORS headers to the response.
+    
+    Args:
+        response (flask.Response): The response object.
+    
+    Returns:
+        flask.Response: The response object with added CORS headers.
+    """
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
 
 @app.route('/')
 def home():
@@ -37,4 +52,4 @@ def page_not_found(e):
     return jsonify({"error": "Not found"}), 404
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='localhost', port=5001)

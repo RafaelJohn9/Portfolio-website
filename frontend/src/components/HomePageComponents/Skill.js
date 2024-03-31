@@ -19,10 +19,10 @@ const Skill = (skill) => {
 
 const Skills = () => {
         return (
-            <div className='overflow-x-auto  h-full w-full'>
+            <div className='overflow-x-auto  h-full w-full overflow-auto'>
                 <h1 className='text-4xl text-center font-extrabold'>My WebStack</h1>
                 <p className='text-center text-lg italic'>Click on a skill to see related projects in GitHub</p>
-                <div className='overflow-x-auto flex h-full w-full overflow-hidden'>
+                <div className='overflow-x-auto flex h-full w-full overflow-auto'>
                     <InfiniteHorizontalScroll>
                         {
                         SkillsJson.map((skill, index) => (

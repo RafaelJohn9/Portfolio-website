@@ -33,15 +33,15 @@ const MoviesSearch = () => {
     };
 
     return (
-            <div className="flex items-center justify-center h-screen bg-cover bg-center bg-black" style={{backgroundImage: `url(${BackGroundMoviesImage})`}}>
+        <div  className="relative flex items-center justify-center h-screen md:bg-cover md:bg-center bg-black" style={{backgroundImage: `url(${BackGroundMoviesImage})`, backgroundPosition: 'center'}}>
 
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDU4MnlpdGFpZG1tcjg1bWc0cHhlb2Fieml2amFqanU5bGJoZnJrcyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/d2Z6aAm3Z2GdLrHi/200.webp" alt="" className="absolute top-0 left-0" />
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDU4MnlpdGFpZG1tcjg1bWc0cHhlb2Fieml2amFqanU5bGJoZnJrcyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/d2Z6aAm3Z2GdLrHi/200.webp" alt="" className="absolute top-0 right-0" />
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDU4MnlpdGFpZG1tcjg1bWc0cHhlb2Fieml2amFqanU5bGJoZnJrcyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/d2Z6aAm3Z2GdLrHi/200.webp" alt="" className="absolute bottom-0 right-0" />
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDU4MnlpdGFpZG1tcjg1bWc0cHhlb2Fieml2amFqanU5bGJoZnJrcyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/d2Z6aAm3Z2GdLrHi/200.webp" alt="" className="absolute bottom-0 left-0" />
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDU4MnlpdGFpZG1tcjg1bWc0cHhlb2Fieml2amFqanU5bGJoZnJrcyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/d2Z6aAm3Z2GdLrHi/200.webp" alt="" className="absolute bottom-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDU4MnlpdGFpZG1tcjg1bWc0cHhlb2Fieml2amFqanU5bGJoZnJrcyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/d2Z6aAm3Z2GdLrHi/200.webp" alt="" className="absolute top-0 left-0 z-0" />
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDU4MnlpdGFpZG1tcjg1bWc0cHhlb2Fieml2amFqanU5bGJoZnJrcyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/d2Z6aAm3Z2GdLrHi/200.webp" alt="" className="absolute top-0 right-0 z-0" />
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDU4MnlpdGFpZG1tcjg1bWc0cHhlb2Fieml2amFqanU5bGJoZnJrcyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/d2Z6aAm3Z2GdLrHi/200.webp" alt="" className="absolute bottom-0 right-0 z-0" />
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDU4MnlpdGFpZG1tcjg1bWc0cHhlb2Fieml2amFqanU5bGJoZnJrcyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/d2Z6aAm3Z2GdLrHi/200.webp" alt="" className="absolute bottom-0 left-0 z-0" />
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDU4MnlpdGFpZG1tcjg1bWc0cHhlb2Fieml2amFqanU5bGJoZnJrcyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/d2Z6aAm3Z2GdLrHi/200.webp" alt="" className="absolute bottom-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0" />
             <NavBar />
-            <div className="flex mt-52 md:mt-64 rounded-lg border-0 md:w-1/2 sm:w-full lg:mt-96">
+            <div className="flex mt-32 md:mt-64 rounded-lg border-0 md:w-1/2 sm:w-full lg:mt-96">
                 <input
                     type="text" required
                     value={searchTerm}

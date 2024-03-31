@@ -45,6 +45,7 @@ const NavBar = () => {
                 <div className={`${isOpen ? 'block' : 'hidden'} md:hidden`}>
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3"></div>
                             {!changeLoginStatus().getLoginStatus() && <Link to="/login" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">SignIn</Link>}
+                            <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
                             <Link to="/about" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</Link>
                             <Link to="/music-search" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Music</Link>
                             <Link to="/movies-search" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Movies</Link>
