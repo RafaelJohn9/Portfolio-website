@@ -35,8 +35,7 @@ def google_login():
     google login
     """
     try:
-        return google.authorize(callback=url_for('app_views.authorized',
-                                _external=True))
+        return google.authorize(callback='https://www.johnmkagunda.me/api/v1/user/google/authorized')
     except Exception as e:
         return "An error occurred during Google login"
 
