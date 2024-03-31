@@ -30,11 +30,13 @@ const AboutPage = () => {
                     Some of the projects include:
                     <br />
                     <ul className='pl-10 list-disc'> 
-                        <li>Version Control - understanding what is git and Github and going to indepth on how to use them. </li>
+                        <li>Version Control - understanding what is git and going to indepth on how to use version control. </li>
                         <li>CommandLine Interface (CLI) - understanding linux file system structure, Introduction to Bash CLI, bash scripting and deep dive of efficiently using the CLI.</li>
                         <li>C programming language - Learning the syntax of C Programming language, the industry standards in terms of programmming patterns, styles and others</li>
                         <li>Algorithm and DataStructures - The different Data Structures their strengths and weaknesses different optimized algorithms in solving common problems such as Search algorithms, Sort algorithms and others</li>
-                        <li>Backend development - Working with backend technologies such as SQLAlchemy(MySQL) and Flask in Python, MongoDB, ExpressJs, NodeJs, MySQL </li>
+                        <li>Backend development - Working with backend technologies to achieve s database management, implementing security measures, optimizing caching systems, 
+                            and designing efficient algorithms to ensure the reliability, 
+                            scalability, and performance of web applications. </li>
                         <li>Server Configuration - Configuring a remote server only using an SSH connection, Writing automation scripts using bash and puppet scripting languages also web server configuration</li>
                         <li>Frontend development - Working with frontend technologies such as HTML, CSS, JavaScript, ReactJs, TailwindCSS</li>
                     </ul>
@@ -46,6 +48,27 @@ const AboutPage = () => {
                     then I break it down into smaller, 
                     manageable tasks. I then solve each task one at a time.
                 </p>
+                <br />
+                <h4 className='font-extrabold'>What is Backend development and why did you decide of  to major in it?</h4>
+                <p className='italic pl-10'>
+                Backend development involves the creation and maintenance of the server-side logic,
+                 databases, and APIs that power web applications.
+                  It's essentially the "behind-the-scenes" work that makes a website or web application function properly.
+                 Backend developers handle tasks such as server management, database integration, 
+                 business logic implementation, security, and scalability.
+                 </p>
+                 <br/>
+                <p className='italic pl-10'>
+                 As for why I decided to major in it is due to
+                 Interest in problem-solving: 
+                 Backend development often involves complex problems related to data processing,
+                system architecture, and performance optimization.
+                 For individuals like me who enjoy solving puzzles and tackling challenges, 
+                 backend development can be intellectually stimulating.
+                <a href='https://leetcode.com/RafaelJohn/' target='_blank' rel="noreferrer" className='text-red-800'>  You can check my LeetCode Profile </a>
+                if you are a new developer and you need to  get yourself up to date on DSA. 
+                I have some code posts on common DSA questions with optimized algorithms used to solve them.
+                 </p>
                 <br />
                 <h4 className='font-extrabold'>What do you enjoy most about programming?</h4>
                 <p className='italic pl-10'>

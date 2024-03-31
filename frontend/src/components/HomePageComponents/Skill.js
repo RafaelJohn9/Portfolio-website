@@ -21,7 +21,8 @@ const Skills = () => {
         return (
             <div className='overflow-x-auto  h-full w-full'>
                 <h1 className='text-4xl text-center font-extrabold'>My WebStack</h1>
-                <div className='overflow-x-auto flex h-full w-full'>
+                <p className='text-center text-lg italic'>Click on a skill to see related projects in GitHub</p>
+                <div className='overflow-x-auto flex h-full w-full overflow-hidden'>
                     <InfiniteHorizontalScroll>
                         {
                         SkillsJson.map((skill, index) => (

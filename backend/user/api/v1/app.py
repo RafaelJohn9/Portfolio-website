@@ -32,7 +32,7 @@ app.secret_key = getenv('SECRET_KEY', 'default-secret-key')
 
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/api/*": {"origins": "*", "supports_credentials": True}})
 
 
 # Initialize Flask-Login

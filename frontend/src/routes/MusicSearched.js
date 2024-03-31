@@ -4,11 +4,14 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
+import recommend from '../middleware/recommend';
+import changeLoginStatus from '../middleware/authentication';
 
 
 const GetMusic = ({ query }) => {
     const [music, setMusic] = useState([]);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchMusic = async () => {
@@ -71,7 +74,15 @@ const GetMusic = ({ query }) => {
                             </div>
                             <p className='text-center'>Artist: {track['Artist(s) Name']}</p>
                             <p className='text-center'>Release Date: {track['release_date']}</p>
-                            <button className='ml-6 hover:bg-gray-800 font-custom bg-gray-400 rounded-full mt-5 text-black w-4/5'>Recommend</button>
+                            <button className='ml-6 bg-red-600 font-custom hover:bg-red-800 rounded-full mt-5 text-black w-4/5' onClick={async (event) => {
+                                const isLoggedIn = changeLoginStatus().getLoginStatus();
+                                if (!isLoggedIn) {
+                                    navigate('/login');
+                                } else {
+                                    event.target.innerText = 'Recommended';
+                                    await recommend(music);
+                                }
+                            }}>Recommend</button>
                             <a href={track['Direct Link']} target='_blank' rel='noreferrer' className="font-extrabold text-red-400">Song Direct Link</a>
                         </div>
                     );
@@ -83,11 +94,12 @@ const GetMusic = ({ query }) => {
 
 const MusicSearched = () => {
     const location = useLocation();
+    const navigate = useNavigate();
+
     const query = location.pathname.split('/')[2].replace(/-/g, ' '); 
     console.log(query);
     const [searchTerm, setSearchTerm] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const navigate = useNavigate();
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);

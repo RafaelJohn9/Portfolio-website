@@ -7,7 +7,6 @@ import EyeOffIcon from '../imgs/eyeOff.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../middleware/user';
 import changeLoginStatus from '../middleware/authentication';
-import axios from 'axios';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -45,17 +44,8 @@ const LoginPage = () => {
     const handleGoogleLogin = () => {
         changeLoginStatus().setLoginStatus(true);
         // Redirect to Google login page
-        const axiosInstance = axios.create({
-            baseURL: 'http://localhost:5000/api/v1/user',
-        });
-
-        axiosInstance.get('/google')
-            .then((response) => {
-            window.location.href = response.request.responseURL;
-            })
-            .catch((error) => {
-            console.error('Error during login:', error);
-            });
+        changeLoginStatus().setLoginStatus(true);
+        window.location.href = 'http://localhost:5000/api/v1/user/google';
     };
 
     const [showPassword, setShowPassword] = useState(false);

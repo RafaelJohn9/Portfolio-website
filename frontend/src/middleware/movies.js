@@ -29,7 +29,7 @@ async function moviesSearch(movieName) {
                 console.error('Error setting up the request:', error.message);
             }
             // Return null or handle error response as needed
-            return null;
+            return [];
         }
     }
 

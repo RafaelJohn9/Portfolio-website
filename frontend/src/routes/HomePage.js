@@ -8,7 +8,7 @@ import './HomePage.css'
 
 const App = () => {
   return (
-<div className="h-screen w-screen bg-white overflow-y-auto overflow-x-hidden bg-gradient-to-tr from-green-900 to-green-100">
+<div className="h-screen w-screen bg-white overflow-y-auto overflow-x-hidden bg-gradient-to-tr from-green-900 to-green-100 overflow-hidden">
       {/* NavBar */}
       <NavBar />                        
       
@@ -23,10 +23,10 @@ const App = () => {
       </div>
 
       {/* Third Section */}
-      <div className="h-full min-h-full min-w-full w-full overflow-scroll">
+      <div className="h-full min-h-full min-w-full w-full overflow-hidden overflow-y-hidden">
         <Skills />
       </div>
-        </div>
+</div>
       )
 }
 

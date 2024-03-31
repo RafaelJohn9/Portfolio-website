@@ -50,11 +50,12 @@ def get_images(directory):
     images.sort(key=lambda img: int(img.split('-')[-1].split('.')[0]))
 
     encoded_images = {}
-    for image in images:
+    nameSizes = ['sm', 'md', 'lg', 'xl', '2xl']
+    for image, nameSize in zip(images,nameSizes):
         size = image.split('-')[-1].split('.')[0]  # Extract size from the image name
         with open(os.path.join(directory, image), 'rb') as img_file:
             encoded_image = base64.b64encode(img_file.read()).decode('utf-8')
-            encoded_images[size] = encoded_image
+            encoded_images[nameSize] = encoded_image
             print(f"Key: {size}, Image: {image}")
     return encoded_images
 

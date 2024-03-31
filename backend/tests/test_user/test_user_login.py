@@ -47,7 +47,7 @@ class UserLoginTestCase(unittest.TestCase):
         response = requests.post(url, json=data)
         self.assertEqual(response.status_code, 400)
         user_data = response.json()
-        self.assertEqual(user_data["message"], "Missing email")
+        self.assertEqual(user_data["message"], "Missing email or password")
     
     def test_user_login_wrong_password(self):
         # Test user login failure
@@ -69,9 +69,9 @@ class UserLoginTestCase(unittest.TestCase):
             "password": "password123"
         }
         response = requests.post(url, json=data)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 401)
         user_data = response.json()
-        self.assertEqual(user_data["message"], "User does not exist")
+        self.assertEqual(user_data["message"], "Invalid email or password")
     
     def test_user_login_missing_email(self):
         # Test user login failure
@@ -82,7 +82,7 @@ class UserLoginTestCase(unittest.TestCase):
         response = requests.post(url, json=data)
         self.assertEqual(response.status_code, 400)
         user_data = response.json()
-        self.assertEqual(user_data["message"], "Missing email")
+        self.assertEqual(user_data["message"], "Missing email or password")
     
     def test_user_login_missing_password(self):
         # Test user login failure
@@ -93,7 +93,7 @@ class UserLoginTestCase(unittest.TestCase):
         response = requests.post(url, json=data)
         self.assertEqual(response.status_code, 400)
         user_data = response.json()
-        self.assertEqual(user_data["message"], "Missing password")
+        self.assertEqual(user_data["message"], "Missing email or password")
     
     def test_user_logout(self):
         # Test user logout

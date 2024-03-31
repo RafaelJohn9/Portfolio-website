@@ -1,29 +1,18 @@
 import axios from 'axios';
 
-async function recommend(item) {
-    let url = '';
-    const baseUrl = 'http://localhost:5000/api/v1/user';
+axios.defaults.withCredentials = true; // Include credentials with requests
 
-    switch(item.item_type) {
-        case 'music':
-            url = `${baseUrl}/music/recommend`;
-            break;
-        case 'book':
-            url = `${baseUrl}/book/recommend`;
-            break;
-        case 'movie':
-            url = `${baseUrl}/movie/recommend`;
-            break;
-        default:
-            throw new Error('Invalid item_type');
-    }
 
+async function login(user) {
+    const { email, password } = user;
     try {
-        const response = await axios.post(url, item);
-        return response;
+        const response = await axios.post('http://localhost:5000/api/v1/user/login', { email, password });
+        
+        
+        return { ...response}; // Include the token in the response
     } catch (error) {
-        console.error(error);
+        return { status: 500, message: 'Server error' };
     }
 }
 
-export default recommend;
+export default login;
