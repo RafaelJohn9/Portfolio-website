@@ -30,7 +30,6 @@ async function createUser(user) {
         }
     }
 }
-axios.defaults.withCredentials = true; // Include credentials with requests
 
 let authToken = ''; // Variable to store the token
 

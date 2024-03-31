@@ -43,7 +43,7 @@ const FrontPage = () => {
         <div className="w-full h-full flex items-center justify-center text-center flex-col">
           <img src="https://media4.giphy.com/media/26xBwdIuRJiAIqHwA/giphy.webp?cid=ecf05e47wdhkf6a4ueqdda15rr9hc26j2uuxokkx2ad2ici8&ep=v1_gifs_search&rid=giphy.webp&ct=g"
           alt="Animated GIF" className="w-64 h-64 rounded-full" />
-          <h1> Hi, I am John, a Backend Engineer.</h1>
+          <h1> Hi, I am John, a Junior FullStack Engineer</h1>
         </div>
       </div>
     </div>

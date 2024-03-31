@@ -32,8 +32,7 @@ const About = () => {
             <div className="lg:px-64 font-custom">
                 <h1 className='text-center font-extrabold text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl'>About me</h1>
                 <p className="text-center font-sans text-lg sm:text-lg md:text-xl lg:text-xl xl:text-xl">
-                I'm John M Kagunda, 
-                a Junior FullStack Developer specializing in backend technologies. 
+                Am currently specializing in backend technologies. 
                 I'm passionate about creating innovative solutions in the digital world. 
                 I pay close attention to detail and am always eager to learn. 
                 I work on both front-end and back-end development to 

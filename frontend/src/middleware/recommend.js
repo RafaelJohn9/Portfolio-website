@@ -1,8 +1,5 @@
 import axios from 'axios';
 
-axios.defaults.withCredentials = true; // Include credentials with requests
-
-
 async function login(user) {
     const { email, password } = user;
     try {
