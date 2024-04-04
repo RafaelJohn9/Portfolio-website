@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import './HomePage.css'
-
+import LoadPage from "../components/CommonComponents/LoadPage";
 const FrontPage = React.lazy(() => import("../components/HomePageComponents/FrontPage"));
 const NavBar = React.lazy(() => import("../components/CommonComponents/NavBar"));
 const About = React.lazy(() => import("../components/HomePageComponents/About"));
@@ -9,7 +9,7 @@ const Skills = React.lazy(() => import("../components/HomePageComponents/Skill")
 const App = () => {
   return (
     <div className="h-screen w-screen bg-white overflow-y-auto overflow-x-hidden bg-gradient-to-tr from-green-900 to-green-100 overflow-hidden">
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={< LoadPage />}>
         {/* NavBar */}
         <NavBar />                        
         
