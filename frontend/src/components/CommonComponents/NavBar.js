@@ -37,9 +37,9 @@ const NavBar = () => {
                         </button>
                     </div>
                     <div className="flex self-end lg:gap-14 ml-auto">
-                        <a href='https://www.linkedin.com/in/john-kagunda-232961270/' target='_blank' rel='noreferrer'><img width="50" height="50" src="https://img.icons8.com/ios-filled/50/linkedin.png" alt="linkedin" className='rounded-full mb-2'/></a>
+                        <a href='https://www.linkedin.com/in/john-kagunda-232961270/' target='_blank' rel='noreferrer'><img width="50" height="50" src="https://img.icons8.com/color/48/linkedin.png" alt="linkedin" className='rounded-full mb-2'/></a>
                         <a href='https://github.com/RafaelJohn9' target='_blank' rel='noreferrer'><img width="50" height="50" src="https://img.icons8.com/ios-filled/50/github.png" alt="github"/></a>
-                        <a href='https://twitter.com/JohnKagunda_12' target='_blank' rel='noreferrer'><img width="50" height="50" src="https://img.icons8.com/ios-filled/50/twitter.png" alt="twitter"/></a>
+                        <a href='https://twitter.com/JohnKagunda_12' target='_blank' rel='noreferrer'><img width="50" height="50" src="https://img.icons8.com/color/48/twitter--v1.png" alt="twitter"/></a>
                     </div>
                 </div>
                 <div className={`${isOpen ? 'block' : 'hidden'} md:hidden`}>
