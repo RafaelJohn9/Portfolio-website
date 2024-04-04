@@ -70,7 +70,7 @@ def authorized(resp):
         login_user(user)
         return redirect('https://www.johnmkagunda.me/')
     except Exception as e:
-        return "An error occurred during authorization"
+        return f"An error occurred during authorization: {e}"
 
 
 @google.tokengetter
