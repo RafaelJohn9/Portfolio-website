@@ -1,14 +1,15 @@
+/**
+ * display page for searched books
+ */
 import React, { useState, useEffect } from 'react';
 import NavBar from '../components/CommonComponents/NavBar';
 import booksSearch from '../middleware/books';
 import { useLocation, useNavigate } from 'react-router-dom';
 import recommend from '../middleware/recommend';
-import changeLoginStatus from '../middleware/authentication';
 // Importing necessary libraries and components
 
 // Component to fetch and display books based on the search query
 const GetBooks = ({ query }) => {
-    const navigate = useNavigate();
     // State variables for books, error and loading status
     const [books, setBooks] = useState([]);
     const [error, setError] = useState(null);
@@ -63,13 +64,8 @@ const GetBooks = ({ query }) => {
                                 </div>
                             )}
                             <button className='ml-6 bg-red-600 font-custom hover:bg-red-800 rounded-full mt-5 text-black w-4/5' onClick={async (event) => {
-                                const isLoggedIn = changeLoginStatus().getLoginStatus();
-                                if (!isLoggedIn) {
-                                    navigate('/login');
-                                } else {
                                     event.target.innerText = 'Recommended';
                                     await recommend(book);
-                                }
                             }}>Recommend</button>
                         </div>
                     );

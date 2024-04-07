@@ -1,3 +1,6 @@
+/**
+ * display page for searched movies
+ */
 import React from 'react';
 import NavBar from '../components/CommonComponents/NavBar';
 import moviesSearch from '../middleware/movies';
@@ -5,13 +8,11 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import recommend from '../middleware/recommend';
-import changeLoginStatus from '../middleware/authentication';
 
 const GetMovies = ({ query }) => {
     const [loading, setLoading] = useState(true);
     const [movies, setMovies] = useState([]);
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -61,13 +62,8 @@ const GetMovies = ({ query }) => {
                             <h2 className='font-bold text-lg text-green-500 text-center'>Rating:</h2>
                             <p className='text-center pl-32 text-red-200'>{movie.rating}/10</p>
                             <button className='ml-6 bg-red-600 font-custom hover:bg-red-800 rounded-full mt-5 text-black w-4/5' onClick={async (event) => {
-                                const isLoggedIn = changeLoginStatus().getLoginStatus();
-                                if (!isLoggedIn) {
-                                    navigate('/login');
-                                } else {
                                     event.target.innerText = 'Recommended';
                                     await recommend(movie);
-                                }
                             }}>Recommend</button>
                         </div>
                     );

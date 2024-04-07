@@ -1,3 +1,6 @@
+/**
+ * display page for searched music
+ */
 import NavBar from '../components/CommonComponents/NavBar';
 import musicSearch from '../middleware/music';
 import { useState, useEffect } from 'react';
@@ -5,13 +8,11 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
 import recommend from '../middleware/recommend';
-import changeLoginStatus from '../middleware/authentication';
 
 
 const GetMusic = ({ query }) => {
     const [music, setMusic] = useState([]);
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchMusic = async () => {
@@ -75,13 +76,8 @@ const GetMusic = ({ query }) => {
                             <p className='text-center'>Artist: {track['Artist(s) Name']}</p>
                             <p className='text-center'>Release Date: {track['release_date']}</p>
                             <button className='ml-6 bg-red-600 font-custom hover:bg-red-800 rounded-full mt-5 text-black w-4/5' onClick={async (event) => {
-                                const isLoggedIn = changeLoginStatus().getLoginStatus();
-                                if (!isLoggedIn) {
-                                    navigate('/login');
-                                } else {
                                     event.target.innerText = 'Recommended';
                                     await recommend(music);
-                                }
                             }}>Recommend</button>
                             <a href={track['Direct Link']} target='_blank' rel='noreferrer' className="font-extrabold text-red-400">Song Direct Link</a>
                         </div>

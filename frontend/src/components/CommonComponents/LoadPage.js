@@ -1,13 +1,13 @@
 import React from 'react';
-import { motion } from "framer-motion";
 
 const LoadPage = () => {
+
     return (
-        <div className="loading min-h-screen min-w-screen h-screen w-screen flex items-center justify-center md:gap-24 gap-12  md:mx-8">
-            <motion.div className=" bg-gradient-to-tr from-[#16552f] to-[#d0f2dc] w-8 h-8 md:w-32 md:h-32 rounded-full" animate={{ scale: [1, 2, 1] }} transition={{ duration: 1, ease: "easeInOut", repeat: Infinity }}></motion.div>
-            <motion.div className=" bg-gradient-to-tr from-[#16552f] to-[#d0f2dc] w-8 h-8 md:w-32 md:h-32 rounded-full" animate={{ scale: [1, 2, 1] }} transition={{ duration: 1, ease: "easeInOut", repeat: Infinity, delay: 0.2 }}></motion.div>
-            <motion.div className=" bg-gradient-to-tr from-[#16552f] to-[#d0f2dc] w-8 h-8 md:w-32 md:h-32 rounded-full" animate={{ scale: [1, 2, 1] }} transition={{ duration: 1, ease: "easeInOut", repeat: Infinity, delay: 0.4 }}></motion.div>
+      <div className="w-full h-full flex justify-center items-center">
+        <div className='w-2/5 h-2/5 flex justify-center items-center rounded-full'>
+          <iframe src="https://giphy.com/embed/iQaJmNecCFyJNnpMxi" title='loading' width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </div>
+      </div>
     );
 };
 
