@@ -3,7 +3,7 @@ import axios from 'axios';
 // axios.defaults.withCredentials = true
 
 async function postItem(item) {
-    const baseUrl = 'https://www.johnmkagunda/api/v1/user/';
+    const baseUrl = 'https://www.johnmkagunda.me/api/v1/user/';
     const { item_type: itemType } = item;
     let route;
 
