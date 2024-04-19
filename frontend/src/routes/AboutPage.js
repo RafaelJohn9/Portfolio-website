@@ -1,4 +1,4 @@
-import ProfilePhoto from '../imgs/official_image_2.jpg'
+import ProfilePhoto from '../imgs/official_image_2 .png'
 import React from 'react';
 import NavBar from '../components/CommonComponents/NavBar';
 
@@ -6,11 +6,11 @@ const AboutPage = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gradient-to-tr from-green-900 to-green-100">
             <NavBar />
-            <img src={ProfilePhoto} alt="Profile" className="rounded-full h-64 w-64 md:h-96 md:w-96 mt-48" />
+            <img src={ProfilePhoto} alt="Profile" className="size-auto" />
             <h1 className="mt-6 text-2xl font-semibold text-black  font-custom">John Kagunda</h1>
             <h2 className="mt-2 text-lg text-black font-medium">FullStack Software Developer</h2>
             <h3>FAQs</h3>
-            <div>
+            <div className='px-10'>
                 <h4 className='font-extrabold'>What is your favorite programming language and why?</h4>
                 <p className='italic pl-10'>Python, It was my first programming language😅</p>
                 <br />
@@ -18,7 +18,10 @@ const AboutPage = () => {
                 <p className='italic pl-10'>
                     I acquired most of my skills in a 12-month Software Engineering Program in  
                     <a href='https://www.alxafrica.com' target='_blank' rel="noreferrer" className='text-red-800'>  alxafrica </a>
-                    which is in association with Holberton School of Technology
+                    which is in association with Holberton School of Technology.
+                     Here is the
+                    <a href='https://intranet.alxswe.com/certificates/TLNH3ycxfp' target='_blank' rel="noreferrer" className='text-red-800'> certificate </a>
+
                 </p>
                 <br />
                 <h4 className='font-extrabold'>What projects have you worked on?</h4>
