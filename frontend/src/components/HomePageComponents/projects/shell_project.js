@@ -3,7 +3,7 @@ import ShellImage from '../../../imgs/shell.png';
 
 const ShellDisplay = () => {
     return (
-        <div className="flex justify-center flex-wrap mt-4 flex-grow overflow-y-auto">
+        <div className="flex justify-center flex-wrap mt-10 flex-grow overflow-y-auto">
             <h1 className="text-xl font-extrabold">1)  Simple Shell</h1>
             <div className='flex md:m-10 mx-4 flex-wrap md:flex-nowrap'>
                    <img src={ShellImage} alt="shell" className="rounded-3xl" />
@@ -22,7 +22,7 @@ const ShellDisplay = () => {
                     and ultimately contribute to my growth as a software developer.
                      </p>
                      <div className='mx-4 flex items-center justify-center gap-12 mt-5 flex-wrap mb-4 font-semibold'>
-                     <button onClick={() => window.open('/shell', '_blank')} className='bg-gradient-to-tr from-gray-500 to-green-900 h-24 rounded-full w-48 hover:from-green-900 hover:to-gray-500'>See demo
+                     <button onClick={() => window.open('/shell', '_blank')} className='bg-gradient-to-tr from-gray-500 to-green-900 h-24 rounded-full w-48 hover:from-green-900 hover:to-gray-500'>See demo ↗
                         <br/>(Dockerised)
                      </button>
                      <button  onClick={() => window.open('https://github.com/RafaelJohn9/simple_shell', '_blank')} className='bg-gradient-to-tr from-gray-500 to-green-900 h-24 w-48 hover:from-green-900 hover:to-gray-500 flex rounded-full justify-center items-center flex-col'>
