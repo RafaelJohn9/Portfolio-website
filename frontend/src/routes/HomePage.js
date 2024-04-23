@@ -5,6 +5,7 @@ const FrontPage = React.lazy(() => import("../components/HomePageComponents/Fron
 const NavBar = React.lazy(() => import("../components/CommonComponents/NavBar"));
 const About = React.lazy(() => import("../components/HomePageComponents/About"));
 const Skills = React.lazy(() => import("../components/HomePageComponents/Skill"));
+const Projects = React.lazy(() => import("../components/HomePageComponents/Projects"));
 
 const App = () => {
   return (
@@ -24,8 +25,12 @@ const App = () => {
         </div>
         
         {/* Third Section */}
-        <div className="h-full min-h-full min-w-full w-full overflow-hidden overflow-y-hidden">
+        <div className="flex flex-grow">
           <Skills />
+        </div>
+        {/* Fourth Section */}
+        <div className=" overflow-hidden overflow-y-auto">
+          <Projects />
         </div>
         </Suspense>
     </div>

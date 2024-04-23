@@ -11,6 +11,7 @@ import AboutPage from './routes/AboutPage';
 import MoviesSearched from './routes/MoviesSearched';
 import MusicSearched from './routes/MusicSearched';
 import BooksSearched from './routes/BooksSearched';
+import Shell from './routes/Shell';
 
 function App() {
     const router = createBrowserRouter([
@@ -59,6 +60,10 @@ function App() {
         },{
             path: '/books-search/:query',
             element: <BooksSearched />,
+            errorElement: <Page404 />,
+        },{
+            path: '/shell',
+            element: <Shell />,
             errorElement: <Page404 />,
         },
     ]);

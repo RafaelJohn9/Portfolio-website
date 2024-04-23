@@ -1,3 +1,6 @@
+/**
+ * used to fetch response from my created shell
+ */
 async function postCommand(command) {
     const url = 'https://www.johnmkagunda.me/api/v1/projects/shell';
     const data = {
@@ -20,6 +23,4 @@ async function postCommand(command) {
     return result;
 }
 
-postCommand('ls')
-    .then(data => console.log(data))
-    .catch(error => console.log('There was an error!', error));
+export default postCommand;

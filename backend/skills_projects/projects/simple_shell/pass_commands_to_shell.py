@@ -2,7 +2,7 @@
 import subprocess
 
 def pass_cmd_to_shell(cmds):
-    malicious_cmds = ['rm -rf', 'mv', 'dd', 'chmod', 'chown', 'shutdown', 'reboot', 'kill']
+    malicious_cmds = ['rm -rf', 'mv', 'dd', 'chmod', 'chown', 'shutdown', 'reboot', 'kill', 'rm']
     if any(malicious in cmds for malicious in malicious_cmds):
         return "Error: Malicious command detected"
 
