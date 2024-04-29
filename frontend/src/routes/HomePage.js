@@ -20,9 +20,7 @@ const App = () => {
         </div>
         
         {/* Second Section */}
-        <div className=" h-full min-h-full min-w-full w-full">
           <About />
-        </div>
         
         {/* Third Section */}
         <div className="flex flex-grow">

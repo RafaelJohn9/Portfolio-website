@@ -1,66 +1,47 @@
-import React, { useState } from 'react';
-import postCommand from '../middleware/shell' 
-import NavBar from '../components/CommonComponents/NavBar';
+import React, { useEffect, useRef } from 'react';
+import Terminal from 'terminal.js';
 
+function Shell() {
+  const terminalRef = useRef(null);
 
-const Output = ({ result }) => {
-    return (
-        <div className='flex flex-wrap w-screen h-28'>
-          {result}
-        </div>
-    )
-};
+  useEffect(() => {
+    const terminal = new Terminal({
+      cursorBlink: true, // Enable cursor blinking
+      convertEol: true, // Convert '\n' to '\r\n' on output
+      rows: 20, // Number of rows
+      cols: 80, // Number of columns
+      screenKeys: true, // Enable special keys such as F1, F2, arrow keys, etc.
+      useStyle: true, // Apply default styling
+      scrollback: 1000, // Number of scrollback lines
+      tabStopWidth: 8, // Width of tab characters
+      fontFamily: 'Courier', // Font family
+      fontSize: 14, // Font size in pixels
+      bellStyle: 'sound', // Bell sound
+      bellSound: 'lib/term/sounds/ding', // Path to the bell sound
+    });
 
-const Shell = () => {
-  const [inputValue, setInputValue] = useState('');
-  const [outputResult, setOutputResult] = useState('');
+    // Mount the terminal to the DOM
+    terminal.open(terminalRef.current);
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
+    // Handle terminal resize
+    const handleResize = () => {
+      terminal.fit();
+    };
 
-  const handleEnterKeyPress = async (event) => {
-    if (event.key === 'Enter') {
-      const result = await processCommand(inputValue.trim());
-      setOutputResult(result);
-      setInputValue(''); // Clear the input field after processing the command
-    }
-  };
+    // Attach resize event listener
+    window.addEventListener('resize', handleResize);
 
-  const processCommand = async (command) => {
-    // Simulate processing the command
-    let result;
-    switch (command) {
-      case 'help':
-        result = 'List of available commands: - help - greet Common linux commands like: ls, echo, whoami, etc';
-        break;
-      case 'greet':
-        result = 'Hello! Welcome to the web terminal!';
-        break;
-      default:
-        result = await postCommand(command);
-        console.log(result);
-        result = Object.values(result).join('\n');
-    }
-    return result;
-  };
+    // Initialize terminal dimensions
+    handleResize();
 
-  return (
-    <div className="flex flex-col h-screen min-h-screen bg-gray-900 text-white flex-wrap">
-      <NavBar />
-      <div className="flex mt-24">
-        <span className="text-green-500 mr-2">$</span>
-        <input
-          className="flex-1 bg-gray-900 text-white rounded outline-none"
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyDown={handleEnterKeyPress}
-        />
-      </div>
-      <Output result={outputResult} />
-    </div>
-  );
-};
+    // Clean up function
+    return () => {
+      terminal.destroy();
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return <div ref={terminalRef}></div>;
+}
 
 export default Shell;

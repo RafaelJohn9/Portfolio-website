@@ -23,30 +23,31 @@ const About = () => {
     }, [controls, inView]);
 
     return (
-        <motion.div 
-            ref={ref}
-            animate={controls}
-            className="h-full w-full flex items-center justify-center"
-            initial={{ scale: 0.7 }}
-        >
-            <div className="lg:px-64 font-custom mx-5">
-                <h1 className='text-center font-extrabold text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl'>About me</h1>
-                <p className="text-center font-sans text-lg sm:text-lg md:text-xl lg:text-xl xl:text-xl">
-                Am currently specializing in backend technologies. 
-                I'm passionate about creating innovative solutions in the digital world. 
-                I pay close attention to detail and am always eager to learn. 
-                I work on both front-end and back-end development to 
-                ensure smooth user experiences and strong functionality. 
-                I have a solid foundation in coding languages and frameworks 
-                and am committed to improving my skills and staying updated on new technologies. 
-                My dedication to learning and problem-solving drives me towards becoming
-                a skilled and adaptable developer in the constantly changing tech industry.
-                </p>
-                <h2 className="italic font-semibold  text-center mt-10">For more check <Link to="/about" className='text-red-600 hover:text-red-800'>FAQs</Link></h2>
-            </div>
-        </motion.div>
+        <div className="h-full min-h-full min-w-full w-full">
+            <motion.div
+                ref={ref}
+                animate={controls}
+                className="h-full w-full flex items-center justify-center"
+                initial={{ scale: 0.7 }}
+            >
+                <div className="lg:px-64 font-custom mx-5">
+                    <h1 className='text-center font-extrabold text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl'>About me</h1>
+                    <p className="text-center font-sans text-lg sm:text-lg md:text-xl lg:text-xl xl:text-xl">
+                        Am currently specializing in backend technologies.
+                        I'm passionate about creating innovative solutions in the digital world.
+                        I pay close attention to detail and am always eager to learn.
+                        I work on both front-end and back-end development to
+                        ensure smooth user experiences and strong functionality.
+                        I have a solid foundation in coding languages and frameworks
+                        and am committed to improving my skills and staying updated on new technologies.
+                        My dedication to learning and problem-solving drives me towards becoming
+                        a skilled and adaptable developer in the constantly changing tech industry.
+                    </p>
+                    <h2 className="italic font-semibold text-center mt-10">For more check <Link to="/about" className='text-red-600 hover:text-red-800'>FAQs</Link></h2>
+                </div>
+            </motion.div>
+        </div>
     );
 }
 
 export default About;
-

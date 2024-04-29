@@ -21,9 +21,9 @@ const TravelKenyaDisplay = () => {
                     TravelKenya offers a gateway to unforgettable experiences in the heart of East Africa.
                     <br/>
                     <br/>
-                    (Collaborated with <a href='https://github.com/kaleabendrias' className='text-gray-400' target='blank'rel='noreferrer'>Kaleab Endrias</a>)
+                    (Collaborated)
                     <br/>
-                    My role: Backend developer 
+                    My role: Backend development
                      </p>
                      <div className='mx-4 flex items-center justify-center gap-12 mt-5 flex-wrap mb-4 font-semibold'>
                      <a className='bg-gradient-to-tr from-gray-500 to-green-900 h-24 rounded-full w-48 hover:from-green-900 hover:to-gray-500 flex items-center justify-center' href='https://travel-kenya-mauve.vercel.app/' target='blank' rel='noreferrer'>

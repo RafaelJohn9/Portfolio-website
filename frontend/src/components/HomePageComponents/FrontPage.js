@@ -39,6 +39,26 @@ const FrontPage = () => {
         animate={{ scale: [3.6, 2.4], opacity: [0.1, 0.6] }} 
         transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }} 
       />
+      <motion.div className="absolute w-20 h-20 bg-green-900 rounded-full animate-pulse opacity-20 blur-lg" 
+        style={{ top: "40%", right: "30%" }} 
+        animate={{ scale: [3.6, 2.4], opacity: [0.2, 0.7] }} 
+        transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }} 
+      />
+      <motion.div className="absolute w-20 h-20 bg-green-900 rounded-full animate-pulse opacity-20 blur-lg" 
+        style={{ top: "40%", left: "30%" }} 
+        animate={{ scale: [3.6, 2.4], opacity: [0.2, 0.7] }} 
+        transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }} 
+      />
+      <motion.div className="absolute w-20 h-20 bg-green-900 rounded-full animate-pulse opacity-20 blur-lg" 
+        style={{ bottom: "20%", right: "10%" }} 
+        animate={{ scale: [3.6, 2.4], opacity: [0.2, 0.9] }} 
+        transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }} 
+      />
+      <motion.div className="absolute w-20 h-20 bg-green-900 rounded-full animate-pulse opacity-20 blur-lg" 
+        style={{ bottom: "20%", left: "10%" }} 
+        animate={{ scale: [3.6, 2.4], opacity: [0.2, 0.9] }} 
+        transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }} 
+      />
       <div className="flex items-center justify-center self-center flex-col z-10">
         <div className="w-full h-full flex items-center justify-center text-center flex-col">
           <img src="https://media4.giphy.com/media/26xBwdIuRJiAIqHwA/giphy.webp?cid=ecf05e47wdhkf6a4ueqdda15rr9hc26j2uuxokkx2ad2ici8&ep=v1_gifs_search&rid=giphy.webp&ct=g"

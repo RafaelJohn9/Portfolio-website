@@ -118,7 +118,7 @@ const MusicSearched = () => {
         }
     };
     return (
-        <div className="min-h-screen  min-w-screen overflow-x-hidden bg-gradient-to-tr from-blue-950 to-[#000000]">
+        <div className="min-h-screen h-screen w-screen  min-w-screen overflow-x-hidden bg-gradient-to-tr from-blue-950 to-[#000000]">
             <NavBar />
             <div>
         <motion.div className="absolute w-40 h-40 bg-green-900 rounded-full animate-pulse opacity-20 blur-lg" 
@@ -126,17 +126,17 @@ const MusicSearched = () => {
         transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }} 
       />
       <motion.div className="absolute w-32 h-32 bg-green-900 rounded-full animate-pulse opacity-20 blur-lg" 
-        style={{ top: "30%", left: "10%" }} 
+        style={{ top: "30%", left: "20%" }} 
         animate={{ scale: [0.8, 1.2], opacity: [0.1, 0.6] }} 
         transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }} 
       />
       <motion.div className="absolute w-24 h-24 bg-green-900 rounded-full animate-pulse opacity-20 blur-lg" 
-        style={{ bottom: "20%", right: "10%" }} 
+        style={{ bottom: "20%", right: "15%" }} 
         animate={{ scale: [0.7, 1.3], opacity: [0.1, 0.6] }} 
         transition={{ duration: 4, repeat: Infinity, repeatType: "reverse" }} 
       />
       <motion.div className="absolute w-20 h-20 bg-green-900 rounded-full animate-pulse opacity-20 blur-lg" 
-        style={{ top: "20%", right: "20%" }} 
+        style={{ top: "40%", right: "10%" }} 
         animate={{ scale: [0.6, 1.4], opacity: [0.1, 0.6] }} 
         transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }} 
       />
@@ -151,7 +151,7 @@ const MusicSearched = () => {
         transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }} 
       />
         <motion.div className="absolute w-20 h-20 bg-green-900 rounded-full animate-pulse opacity-20 blur-lg" 
-        style={{ top: "10%", right: "10%" }} 
+        style={{ top: "40%", right: "50%" }} 
         animate={{ scale: [3.6, 2.4], opacity: [0.1, 0.6] }} 
         transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }} 
       /></div>
@@ -165,7 +165,7 @@ const MusicSearched = () => {
                         placeholder="Search for music..."
                         className="w-full  px-4 py-2 text-lg rounded-full outline-none bg-[#0c0202] text-white"
                     />
-                    <button onClick={handleSearch} className="px-4 py-2 bg-[#0c0202]  text-white  rounded-full hover:bg-gray-800">
+                    <button onClick={handleSearch} className="px-4 py-2 bg-[#0c0202]  text-white  rounded-full hover:bg-gray-500">
                         Search
                     </button>
                     {errorMessage && <p className="text-red-500">{errorMessage}</p>}
