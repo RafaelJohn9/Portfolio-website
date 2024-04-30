@@ -20,7 +20,11 @@ async function postCommand(command) {
     }
 
     const result = await response.json();
-    return result;
+    if (result['$'].includes('\r')) {
+        result['$'] = result['$'].replace(/\r/g, ' ');
+    }
+    console.log(result);
+    return result['$'];
 }
 
 export default postCommand;

@@ -1,47 +1,76 @@
-import React, { useEffect, useRef } from 'react';
-import Terminal from 'terminal.js';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { Terminal } from 'xterm';
+import 'xterm/css/xterm.css';
+import postCommand from '../middleware/shell';
 
-function Shell() {
+const Shell = () => {
+  const [userData, setUserData] = useState("");
+  const [terminal, setTerminal] = useState(null); // Define terminal state
+
   const terminalRef = useRef(null);
 
+  const handleData = useCallback(async (data) => {
+    if (/^[a-zA-Z0-9\s\-/\\"'&|[\]{}()$<>.,]+$/.test(data)) {
+      terminal.write(data);
+      await setUserData(prevData => prevData + data);
+      console.log(userData);
+    }
+  }, [terminal, userData]);
+
+  const handleBackspace = useCallback(async (e) => {
+    if (e.domEvent.key === 'Backspace') {
+      const activeLine = userData;
+      if (activeLine.length > 2) {
+        terminal.write('\b \b');
+        await setUserData(prevData => prevData.slice(0, -1));
+        console.log(userData);
+      }
+    }
+  }, [terminal, userData]);
+
   useEffect(() => {
-    const terminal = new Terminal({
-      cursorBlink: true, // Enable cursor blinking
-      convertEol: true, // Convert '\n' to '\r\n' on output
-      rows: 20, // Number of rows
-      cols: 80, // Number of columns
-      screenKeys: true, // Enable special keys such as F1, F2, arrow keys, etc.
-      useStyle: true, // Apply default styling
-      scrollback: 1000, // Number of scrollback lines
-      tabStopWidth: 8, // Width of tab characters
-      fontFamily: 'Courier', // Font family
-      fontSize: 14, // Font size in pixels
-      bellStyle: 'sound', // Bell sound
-      bellSound: 'lib/term/sounds/ding', // Path to the bell sound
+    var data = ""
+    const term = new Terminal();
+    term.open(terminalRef.current);
+    term.focus();
+    term.prompt = () => {
+      term.write("$ ");
+    };
+    term.prompt();
+
+    term.onData(async (data) => {
+      await handleData(data);
     });
 
-    // Mount the terminal to the DOM
-    terminal.open(terminalRef.current);
+    term.onKey(async (e) => {
+      await handleBackspace(e);
+      if (e.domEvent.key === 'Enter') {
+        term.write('\n\r');
+        setUserData((prevData) => {
+		data = prevData;
+		return ("");
+	});
+        term.write(await postCommand(data));
+        console.log(userData);
+        term.write('\n\r');
+        term.prompt();
+      } else if (e.domEvent.key === 'ArrowRight') {
+        term.write('\x1b[C');
+      }
+    });
 
-    // Handle terminal resize
-    const handleResize = () => {
-      terminal.fit();
-    };
+    setTerminal(term); // Set terminal state
 
-    // Attach resize event listener
-    window.addEventListener('resize', handleResize);
-
-    // Initialize terminal dimensions
-    handleResize();
-
-    // Clean up function
     return () => {
-      terminal.destroy();
-      window.removeEventListener('resize', handleResize);
+      term.dispose();
     };
-  }, []);
+  }, [handleData, handleBackspace, userData]);
 
-  return <div ref={terminalRef}></div>;
-}
+  return (
+    <div className='bg-black h-screen w-screen flex flex-grow flex-col overflow-hidden'>
+      <div className='h-full w-full bg-black overflow-x-hidden' ref={terminalRef}></div>
+    </div>
+  );
+};
 
 export default Shell;
