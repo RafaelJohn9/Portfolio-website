@@ -7,6 +7,9 @@ const InfiniteHorizontalScroll = ({ children }) => {
       <div className="inline-flex animate-scroll overflow-auto">
         {children}
         {children} {/* Repeat children for seamless looping */}
+        {children} {/* Repeat children for seamless looping */}
+        {children} {/* Repeat children for seamless looping */}
+        {children} {/* Repeat children for seamless looping */}
       </div>
     </div>
   );
