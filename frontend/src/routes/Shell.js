@@ -12,7 +12,10 @@ const Shell = () => {
 
   useEffect(() => {
     // Create a new terminal instance
-    terminal.current = new Terminal();
+    terminal.current = new Terminal({
+      cursorBlink: true,
+      windowsMode: false
+    });
     terminal.current.open(terminalRef.current);
     terminal.current.focus();
 
@@ -86,7 +89,23 @@ const Shell = () => {
     terminal.current.prompt();
     terminal.current.onData(onDataHandler);
     terminal.current.onKey(onKeyHandler);
+    // // Resize terminal to fit the whole screen
+    // const resizeTerminal = () => {
+    //   if (terminal.current) {
+    //     terminal.current.fit();
+    //   }
+    // };
 
+    // // Call resizeTerminal on window resize event
+    // window.addEventListener('resize', resizeTerminal);
+
+    // // Call resizeTerminal on component mount
+    // useEffect(() => {
+    //   resizeTerminal();
+    //   return () => {
+    //     window.removeEventListener('resize', resizeTerminal);
+    //   };
+    // }, []);
     
     return () => {
       terminal.current.dispose();
