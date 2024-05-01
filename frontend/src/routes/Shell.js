@@ -1,70 +1,109 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Terminal } from 'xterm';
 import 'xterm/css/xterm.css';
 import postCommand from '../middleware/shell';
 
 const Shell = () => {
-  const [userData, setUserData] = useState("");
-  const [terminal, setTerminal] = useState(null); // Define terminal state
-
   const terminalRef = useRef(null);
-
-  const handleData = useCallback(async (data) => {
-    if (/^[a-zA-Z0-9\s\-/\\"'&|[\]{}()$<>.,]+$/.test(data)) {
-      terminal.write(data);
-      await setUserData(prevData => prevData + data);
-      console.log(userData);
-    }
-  }, [terminal, userData]);
-
-  const handleBackspace = useCallback(async (e) => {
-    if (e.domEvent.key === 'Backspace') {
-      const activeLine = userData;
-      if (activeLine.length > 2) {
-        terminal.write('\b \b');
-        await setUserData(prevData => prevData.slice(0, -1));
-        console.log(userData);
-      }
-    }
-  }, [terminal, userData]);
+  const terminal = useRef(null); // Store terminal instance using useRef
+  const [userInput, setUserInput] =  useState("");
+  let userCommand = ""
+  const cache = useRef({}); // Create a cache using useRef
 
   useEffect(() => {
-    var data = ""
-    const term = new Terminal();
-    term.open(terminalRef.current);
-    term.focus();
-    term.prompt = () => {
-      term.write("$ ");
+    // Create a new terminal instance
+    terminal.current = new Terminal();
+    terminal.current.open(terminalRef.current);
+    terminal.current.focus();
+
+    // Custom prompt
+
+    terminal.current.prompt = async () => {
+      let pwd = (await getCachedResponse("pwd")).replace(/\n/g, '');
+      let user = (await getCachedResponse("whoami")).replace(/\n/g, '');
+      let nodename = (await getCachedResponse("uname -n")).replace(/\n/g, '');
+      terminal.current.write(`${user}@${nodename}:${pwd}$ `);
     };
-    term.prompt();
 
-    term.onData(async (data) => {
-      await handleData(data);
-    });
-
-    term.onKey(async (e) => {
-      await handleBackspace(e);
-      if (e.domEvent.key === 'Enter') {
-        term.write('\n\r');
-        setUserData((prevData) => {
-		data = prevData;
-		return ("");
-	});
-        term.write(await postCommand(data));
-        console.log(userData);
-        term.write('\n\r');
-        term.prompt();
-      } else if (e.domEvent.key === 'ArrowRight') {
-        term.write('\x1b[C');
+    const getCachedResponse = async (command) => {
+      if (cache.current[command]) {
+      return cache.current[command]; // Return cached response if available
+      } else {
+      const response = await postCommand(command);
+      cache.current[command] = response; // Cache the response
+      return response;
       }
-    });
-
-    setTerminal(term); // Set terminal state
-
-    return () => {
-      term.dispose();
     };
-  }, [handleData, handleBackspace, userData]);
+
+    // Event listeners
+    const onDataHandler = (data) => {
+      const validCharacters = /^[a-zA-Z0-9 ?/\\|"'()<>{}[\]\-_*&^%$~`]+$/;
+      if (validCharacters.test(data)) {
+      terminal.current.write(data);
+      setUserInput(prevInput => (prevInput + data));
+      }
+    };
+
+    const clearTerminal = () => {
+      // Write ANSI escape sequence to clear the terminal
+      terminal.current.write('\x1b[2J\x1b[H');
+    };
+    
+
+    const onKeyHandler = async (e) => {
+      if (!terminal.current) return; // Ensure terminal is initialized
+    
+      
+      // if (!core || !buffer || !active) return; // Ensure core, buffer, and active are initialized
+      if (e.domEvent.key === 'Enter') {
+        terminal.current.write('\n\r');
+        if (userCommand === 'clear'){
+          clearTerminal();
+          userCommand = ""
+          return ("");
+        }else{
+        console.log("command: " + userCommand)
+        terminal.current.write(await postCommand(userCommand));
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      userCommand = ""
+      terminal.current.write('\n\r');
+      terminal.current.prompt();
+      } else if (e.domEvent.key === 'ArrowRight') {
+        terminal.current.write('\x1b[C')
+      }else if (e.domEvent.key === 'Backspace') {
+        if (userCommand === "") {
+          // Do nothing
+          return;
+        } else {
+          userCommand = userCommand.length > 1 ? userCommand.slice(0, -1) : '';
+          setUserInput(prevInput => (prevInput.length > 1 ? prevInput.slice(0, -1) : ''))
+          console.log("userCommand after delete:", userCommand)
+            terminal.current.write('\b \b');
+          }
+        }
+      };
+    terminal.current.prompt();
+    terminal.current.onData(onDataHandler);
+    terminal.current.onKey(onKeyHandler);
+
+    
+    return () => {
+      terminal.current.dispose();
+    };
+  }, []);
+
+  const onDataChangeHandler = (data) => {
+    const validCharacters = /^[a-zA-Z0-9 ?/\\|"'()<>{}[\]\-_*&^%$~`]+$/;
+    if (validCharacters.test(data)) {
+    userCommand += data;
+    }
+  };
+
+  useEffect(() => {
+    terminal.current.onData(onDataChangeHandler);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userInput]);
 
   return (
     <div className='bg-black h-screen w-screen flex flex-grow flex-col overflow-hidden'>

@@ -8,6 +8,15 @@ exports.default = void 0;
 /**
  * used to fetch response from my created shell
  */
+var responseFormatter = function responseFormatter(response) {
+  if (response) {
+    response['$'] = response['$'].replace(/\n(?!\r$)/g, '\n\r');
+    response['$'] = response['$'].replace(/\r$/, ''); // Remove \r from the end of the string
+  }
+
+  return response;
+};
+
 function postCommand(command) {
   var url, data, response, result;
   return regeneratorRuntime.async(function postCommand$(_context) {
@@ -16,7 +25,7 @@ function postCommand(command) {
         case 0:
           url = 'https://www.johnmkagunda.me/api/v1/projects/shell';
           data = {
-            command: command
+            command: command.replace(/"/g, "'")
           };
           _context.next = 4;
           return regeneratorRuntime.awrap(fetch(url, {
@@ -43,10 +52,9 @@ function postCommand(command) {
 
         case 9:
           result = _context.sent;
-
-          if (result['$'].includes('\r')) {
-            result['$'] = result['$'].replace(/\r/g, ' ');
-          }
+          result = responseFormatter(result); // if (result['$'].includes('\r')) {
+          //     result['$'] = result['$'].replace(/\r/g, ' ');
+          // }
 
           console.log(result);
           return _context.abrupt("return", result['$']);
