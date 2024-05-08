@@ -6,7 +6,7 @@ import LoginPage from './routes/LoginPage'
 import RegisterPage from './routes/RegisterPage'
 import MoviesSearch from './routes/MoviesSearch';
 import MusicSearch from './routes/MusicSearch';
-import BookSearch from './routes/BookSearch';
+import Books from './routes/Books';
 import AboutPage from './routes/AboutPage';
 import MoviesSearched from './routes/MoviesSearched';
 import MusicSearched from './routes/MusicSearched';
@@ -41,11 +41,6 @@ function App() {
             errorElement: <Page404 />
         },
         {
-            path: '/books-search',
-            element: <BookSearch />,
-            errorElement: <Page404 />
-        },
-        {
             path: '/about',
             element: <AboutPage />,
             errorElement: <Page404 />
@@ -60,6 +55,10 @@ function App() {
         },{
             path: '/books-search/:query',
             element: <BooksSearched />,
+            errorElement: <Page404 />,
+        },{
+            path: '/books',
+            element: <Books/>,
             errorElement: <Page404 />,
         },{
             path: '/shell',

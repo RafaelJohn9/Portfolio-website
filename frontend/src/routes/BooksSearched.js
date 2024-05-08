@@ -2,7 +2,6 @@
  * display page for searched books
  */
 import React, { useState, useEffect } from 'react';
-import NavBar from '../components/CommonComponents/NavBar';
 import booksSearch from '../middleware/books';
 import { useLocation, useNavigate } from 'react-router-dom';
 import recommend from '../middleware/recommend';
@@ -14,6 +13,8 @@ const GetBooks = ({ query }) => {
     const [books, setBooks] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+
+
 
     // Fetch books when component mounts or query changes
     useEffect(() => {
@@ -43,7 +44,7 @@ const GetBooks = ({ query }) => {
 
     // Display books or no results message
     return (
-        <div className='pl-10 h-full w-full text-black italic font-custom flex flex-wrap gap-32'>
+        <div className='text-[#fa3329] italic font-custom flex flex-wrap gap-32 items-center justify-center'>
             {books.length === 0 ? (
                 <h1 className='text-4xl'>No results found</h1>
             ) : (
@@ -52,21 +53,26 @@ const GetBooks = ({ query }) => {
                         return null;
                     }
                     return (
-                        <div key={index} className='bg-grey-950 h-64 w-60 mb-48 md:ml-0 sm:ml-16 mt-16 relative group'>
-                            <div className='h-1/2'></div>
-                            <img src={book.cover_images.thumbnail} alt="" />
-                            <h1 className='text-center font-extrabold'>Title: {book.title}</h1>
-                            <p className='text-center'>Release Date: {book.release_date}</p>
-                            {book.rating && (
-                                <div>
-                                    <h2 className='font-bold text-lg text-green-500 text-center'>Rating:</h2>
-                                    <p className='text-center pl-32 text-red-500 font-bold'>{book.rating} /10</p>
+                        <div key={index} className='mt- bg-opacity-30 bg-[#7c3131bb] flex flex-wrap w-full md:w-2/5 lg:w-2/6 p-8 rounded-xl'>
+                            <div className='flex'>
+                                <img src={book.cover_images.thumbnail} alt="" />
+                                <div className='flex flex-wrap text-black flex-col pl-4 pt-4'>
+                                    <h1 className='text-center font-extrabold pb-3 pr-2'>Title: {book.title}</h1>
+                                    {book.rating && (
+                                        <div className='flex'>
+                                        <h2 className='font-bold text-lg'>Rating:</h2>
+                                        <p className='pl-8 font-bold'>{book.rating} /10 </p>
+                                        </div>
+                                    )}
+                                    <p className='font-bold'>Author: {book.authors} </p>
                                 </div>
-                            )}
-                            <button className='ml-6 bg-red-600 font-custom hover:bg-red-800 rounded-full mt-5 text-black w-4/5' onClick={async (event) => {
-                                    event.target.innerText = 'Recommended';
-                                    await recommend(book);
-                            }}>Recommend</button>
+                            </div>
+                            <div className='flex w-full items-center justify-center'>
+                                    <button className='bg-red-600 font-custom hover:bg-red-800 rounded-full text-black flex p-4 my-5   text-center' onClick={async (event) => {
+                                        event.target.innerText = 'Recommended';
+                                        await recommend(book);
+                                    }}>Recommend</button>
+                            </div>
                         </div>
                     );
                 })
@@ -77,29 +83,34 @@ const GetBooks = ({ query }) => {
 
 // Main component for searching books
 const BooksSearched = () => {
-    // Hooks for location and navigation
+    // Hooks for location and navigation and search handler
     const location = useLocation();
     const navigate = useNavigate();
+    const [clickedSearch, setClickedSearch] = useState(false);
+    const [search, setSearch] = useState('');
+
+
+
 
     // Extracting search query from the URL
     const query = location.pathname.split('/')[2].replace(/-/g, ' '); 
 
     // State variables for search term and error message
-    const [searchTerm, setSearchTerm] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     // Handler for search input change
     const handleSearchChange = (event) => {
-        setSearchTerm(event.target.value);
+        setSearch(event.target.value);
     };
 
     // Handler for search action
     const handleSearch = () => {
-        if (searchTerm === '') {
+        if (search === '') {
             setErrorMessage('Please fill out this field');
         } else {
+            // handle search here
             setErrorMessage('');
-            let formattedSearchTerm = searchTerm.split(' ').join('-');
+            let formattedSearchTerm = search.split(' ').join('-');
             navigate(`/books-search/${formattedSearchTerm}`);
         }
     };
@@ -113,24 +124,28 @@ const BooksSearched = () => {
 
     // Render the component
     return (
-        <div className="h-screen min-h-full w-screen min-w-full overflow-x-hidden  bg-black text-white">
-            <NavBar />
-            <div className="w-full h-full">
-                <div className="flex rounded-lg border-0 md:w-1/2 sm:w-full pt-24 justify-center items-center">
-                    <input
-                        type="text" required
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                        onKeyPress={handleKeyPress}
-                        placeholder="Search for books..."
-                        className="w-full px-4 py-2 text-lg bg-gray-400 rounded-full outline-none hover:bg-grey-500 text-black"
-                    />
-                    <button onClick={handleSearch} className="px-4 py-2 bg-blue-950  text-white  rounded-full hover:bg-black">
-                        Search
-                    </button>
-                    {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-                </div>
-                <div className='grid grid-rows-4'>
+        <div className="h-screen min-h-full w-screen min-w-full overflow-x-hidden  bg-[#3a0d0d] text-[#fa3329]">
+            <div className="w-full h-full font-Rubik">
+                <div className='flex flex-grow flex-col font-Rubik'>
+                <div className='mt-6 font-extralight ml-6 text-2xl text-[#fa3329]'><h1>Book Haven</h1></div>
+                <hr className=" w-screen ml-12 border-[#fa3329] mt-2"/>
+                <nav className='mt-6 ml-6 mb-6'>
+                    <a className='mr-6 hover:opacity-50 transition-opacity duration-300' href='/books'>Home</a>
+                    <button onClick={() => setClickedSearch(true)} className='mr-6 hover:opacity-50 transition-opacity duration-300'>Search</button>
+                    { clickedSearch && <form className='pt-5' onSubmit={(e) => e.preventDefault()}>
+                        <input 
+                               type="text" required
+                               placeholder="Search for books"
+                               className='border-b-2 border-b-[#b8413a] bg-transparent outline-none rounded-md p-1 mr-4'
+                               value={search}
+                               onChange={handleSearchChange}
+                               onKeyPress={handleKeyPress}
+                        />
+                        <button className=' bg-gradient-to-tr from-[#fa3329] to-[#8d2626] text-[#3a0d0d] hover:bg-gradient-to-tr hover:from-[#8d2626] hover:to-[#fa3329] hover:opacity-50 hover:duration-300 py-2 px-4 rounded-xl' onClick={handleSearch} onSubmit={handleSearch}>Search</button>
+                    </form> }
+                </nav>
+            </div>
+                <div className='mb-8 mx-4 flex flex-wrap items-center justify-center'>
                     <GetBooks query={query} />
                 </div>
             </div>
