@@ -73,25 +73,25 @@ const Books = () =>{
                     </div>
                       <div className='grid grid-cols-1 md:grid-cols-2  gap-4'>
                         <div className='flex flex-col mt-4 hover:opacity-50 hover:duration-300 cursor-pointer'>
-                            <a href='/books-search/mystery-thriller-genre'>
+                            <a href='/books-search/mystery-thriller'>
                                 <img src={MysteryThriller} className='justify-center items-center rounded-full md:w-4/5' alt="" />
                                 <p className='mt-2 pl-24 lg:pl-56'>Mystery Thrillers, Collection</p>
                             </a>
                         </div>
                         <div className='flex flex-col hover:opacity-50 hover:duration-300 cursor-pointer'>
-                            <a href='/books-search/romance-genre'>
+                            <a href='/books-search/romance'>
                                 <img src={Romance} className='mt-4 rounded-full md:w-4/5' alt="" />
                                 <p className='mt-2 pl-24 lg:pl-56'>Heartwarming Romance Collection</p>
                             </a>
                         </div>
                         <div className='flex flex-col hover:opacity-50 hover:duration-300 cursor-pointer'>
-                            <a href='/books-search/scifi-genre'>
+                            <a href='/books-search/scifi'>
                                 <img src={SciFi} className='justify-center items-center rounded-full md:w-4/5' alt="" />
                                 <p className='mt-2 pl-32 lg:pl-56'>Sci-fi extravaganza</p>
                             </a>
                         </div>
                         <div className='flex flex-col hover:opacity-50 hover:duration-300 cursor-pointer'>
-                            <a href='/books-search/selfhelp-genre'>
+                            <a href='/books-search/selfhelp'>
                                 <img src={SelfHelp} className='justify-center items-center rounded-full md:w-4/5' alt="" />
                                 <p className='mt-2  pl-28 lg:pl-56'>Top to Self-Help Books</p>
                             </a>

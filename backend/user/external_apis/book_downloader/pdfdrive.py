@@ -70,7 +70,7 @@ def second_page(response):
         # Get the href attribute of the 'a' element
         link += a_tag.get('href')
     else:
-        print("Failed to retrieve the webpage.")
+        print("Failed to retrieve the second webpage.")
         
     # Make a GET request to the link
     response = requests.get(link)
@@ -143,5 +143,5 @@ def get_dowload_url(title: str):
     
 
 if __name__ == '__main__':
-    print(get_dowload_url("harry pottter and the deathly hallows"))
+    print(get_dowload_url("The Matrix"))
 
