@@ -1,147 +1,182 @@
 #!/usr/bin/env python3
-"""Used to download books""" 
+"""
+Used to download books from PDF Drive.
+"""
 
+import time
+import asyncio
+import logging
+from urllib.parse import urljoin
+
+import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from urllib.parse import urljoin
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 from webdriver_manager.chrome import ChromeDriverManager
-import requests
-import time
 
 # Global variables
-base_url = "https://www.pdfdrive.com/"
+BASE_URL = "https://www.pdfdrive.com/"
 
-def first_page_parsing_and_searching(title):
-    # URL of the webpage
-    url = base_url + "#"
-    
-    # Send a GET request to the webpage
-    response = requests.get(url)
-    
-    # Parse the HTML content
-    soup = BeautifulSoup(response.content, "html.parser")
-    
-    # Find the div with id 'form-container'
-    div = soup.find(id='form-container')
-    
-    # Find the form with id 'search-form' within the div
-    second_form = div.find('form', id='search-form')
-    
-    # Find the input element within the second form
-    input_field = second_form.find("input", id='q')
-    
-    # Set the value of the input field to "lightning thief"
-    input_field["value"] = title
-    
-    # Get the action attribute of the form
-    action = second_form.get('action')
-    
-    # Construct the complete URL by joining the base URL and the form action
-    complete_url = urljoin(url, action)
-    
-    # Submit the second form by sending a GET request with the input field value as a parameter
-    response = requests.get(complete_url, params={input_field['name']: input_field['value']})
-    
-    # Check if the request was successful
-    if response.status_code == 200:
-        print("Page one successful.")
-        return response
-    else:
-        print("Page one failed.")
-        return None
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def second_page(response):
-    if not response:
-        return None
-    # Make a GET request to the response URL
-    link = base_url
-    
-    # Check if the request was successful
-    if response.status_code == 200:
-        # Print the HTML content of the response
-        # Parse the HTML content of the response
-        soup = BeautifulSoup(response.content, "html.parser")
-        # Find the first div with class 'file-right'
-        div = soup.find('div', class_='file-right')
-        # Find the 'a' element within the div
-        a_tag = div.find('a')
-        # Get the href attribute of the 'a' element
-        link += a_tag.get('href')
-    else:
-        print("Failed to retrieve the second webpage.")
-        
-    # Make a GET request to the link
-    response = requests.get(link)
-    # Check if the request was successful
-    progress_link = ""
-    
-    if response.status_code == 200:
-        # Parse the HTML content of the response
-        soup = BeautifulSoup(response.content, "html.parser")
-        # Find the span with class 'download-button'
-        span = soup.find('span', id='download-button')
-        # Find the 'a' element within the span
-        a_tag = span.find('a')
-        # Get the href attribute of the 'a' element
-        progress_link = base_url + a_tag.get('href')
-        # Print the download link
-        print("Page two successful")
-        return progress_link
-    else:
-        print("Failed to retrieve the download page.")
-    
 
-def third_page(progress_link):
+def first_page_parsing_and_searching(title: str) -> requests.Response:
+    """
+    Search for the book title on the first page.
+    """
+    while True:
+        try:
+            url = BASE_URL + "#"
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()
+
+            soup = BeautifulSoup(response.content, "html.parser")
+            div = soup.find(id='form-container')
+            search_form = div.find('form', id='search-form')
+            input_field = search_form.find("input", id='q')
+            input_field["value"] = title
+            action = search_form.get('action')
+            complete_url = urljoin(url, action)
+
+            response = requests.get(complete_url, params={input_field['name']: input_field['value']}, timeout=10)
+            response.raise_for_status()
+
+            logging.info("Page one successful.")
+            return response
+        except Exception as err:
+            logging.error("Error: %s", err)
+            logging.info("Failed to retrieve the first webpage...retrying after 10 seconds")
+            time.sleep(10)
+
+
+def second_page(response: requests.Response) -> str:
+    """
+    Select the book on the second page.
+    """
+    while True:
+        try:
+            if not response:
+                return ""
+            link = BASE_URL
+
+            soup = BeautifulSoup(response.content, "html.parser")
+            div = soup.find('div', class_='file-right')
+            a_tag = div.find('a')
+            link += a_tag.get('href')
+
+            response = requests.get(link, timeout=10)
+            response.raise_for_status()
+
+            soup = BeautifulSoup(response.content, "html.parser")
+            span = soup.find('span', id='download-button')
+            a_tag = span.find('a')
+            progress_link = BASE_URL + a_tag.get('href')
+
+            logging.info("Page two successful.")
+            return progress_link
+        except Exception as err:
+            logging.error("Error: %s", err)
+            logging.info("Failed to retrieve the second webpage...retrying after 10 seconds")
+            time.sleep(10)
+
+
+def third_page(progress_link: str) -> str:
+    """
+    Get the download book link on the third page.
+    """
     if not progress_link:
-        return None
-    # Setup webdriver
+        return ""
+
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     webdriver_service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=webdriver_service, options=options)
     download_link = ""
-    # Open the download link
+
     driver.get(progress_link)
-    # Keep track of the progress bar
+    
+    progress_bar_selectors = [
+    "div[role='progressbar']",
+    # Add more CSS selectors for additional progress bars if needed
+    ]
+    
+    a_tag_selectors = [
+        "a.btn.btn-success.btn-responsive",
+        "a.btn.btn-primary.btn-user"
+        # Add more CSS selectors for additional a_tag selectors if needed       
+    ]
+
     while True:
         try:
-            # Find the progress bar
-            progress_bar = driver.find_element(By.CSS_SELECTOR, "div[role='progressbar']")
-            # Get the aria-valuenow attribute, which represents the current progress
-            progress = progress_bar.get_attribute('aria-valuenow')
-            # Check if the progress is 100g or more
+            progress = None
+            for selector in progress_bar_selectors:
+                try:
+                    progress_bar = driver.find_element(By.CSS_SELECTOR, selector)
+                    progress = progress_bar.get_attribute('aria-valuenow')
+                    break  # Exit the loop if a progress bar is found
+                except NoSuchElementException:
+                    continue 
+
             if int(progress) >= 100:
-                print("Download completed.")
-                # Find the 'a' tag with class names 'btn', 'btn-user', 'btn-primary'
-                a_tag = driver.find_element(By.CSS_SELECTOR, "a.btn.btn-user.btn-primary")
-                # Get the href attribute of the 'a' element
-                href = a_tag.get_attribute('href')
-                # Append the href to the download_link
-                download_link += href
-                # Print the download link
-                print("Download Link:", download_link)
+                logging.info("Download completed.")
+                for selector in a_tag_selectors:
+                    try:
+                        a_tag = driver.find_element(By.CSS_SELECTOR, selector)
+                        break  # Exit the loop if a progress bar is found
+                    except NoSuchElementException:
+                        continue 
+                download_link = a_tag.get_attribute('href')
+                logging.info("Download Link: %s", download_link)
                 break
-            else:
-                print(f"Download: {progress}% complete.")
-        except Exception as e:
-            print("Error:", str(e))
-            # Sleep for a while before checking again
-            time.sleep(1)
-    # Close the webdriver
+        except Exception as err:
+            logging.error("Error: %s", err)
+            break
+
     driver.quit()
     return download_link
 
-def get_dowload_url(title: str):
-    """C"""
+
+def get_download_url(title: str) -> str:
+    """
+    Main function of the script to get the download URL for a book title.
+    """
     first_page_response = first_page_parsing_and_searching(title)
     if not first_page_response:
         raise ValueError("Failed to parse the first page.")
     second_page_response = second_page(first_page_response)
+    if not second_page_response:
+        raise ValueError("Failed to parse the second page.")
     download_link = third_page(second_page_response)
-    
+    return download_link
+
+
+async def process_query(query: str, file):
+    """
+    Process each query asynchronously and write the download link to a file.
+    """
+    query = query.strip()
+    try:
+        download_link = await asyncio.get_event_loop().run_in_executor(None, get_download_url, query)
+        if download_link:
+            file.write(download_link + '\n')
+        else:
+            logging.warning("No download link found for query: %s", query)
+    except Exception as err:
+        logging.error("Error processing query '%s': %s", query, err)
+
 
 if __name__ == '__main__':
-    print(get_dowload_url("The Matrix"))
+    queries = []
+    with open('example_booklist.txt', 'r') as file:
+        queries = file.readlines()
 
+    with open('download_links.txt', 'w') as file:
+        loop = asyncio.get_event_loop()
+        tasks = [process_query(query, file) for query in queries]
+        loop.run_until_complete(asyncio.gather(*tasks))
+        loop.close()
