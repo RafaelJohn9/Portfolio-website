@@ -7,6 +7,8 @@ from external_apis.music_downloader.music_download_link import music_download_li
 def music_downloader(query):
     """ uses the get_music_link and download_music 
     functions to get the download link for a given query."""
+    if query == "" or query is None:
+        raise ValueError("Invalid query")
     try:
         music_link = get_music_link(query)
         download_link = music_download_link(music_link)

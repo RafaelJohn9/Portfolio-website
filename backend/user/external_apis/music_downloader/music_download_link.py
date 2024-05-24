@@ -5,6 +5,8 @@ from pytube import YouTube
 
 def music_download_link(url):
     """downloads the audio of a YouTube video given its URL."""
+    if url == "" or url is None:
+        raise ValueError("Invalid URL")
     try:
         # Create a YouTube object with the given URL
         video = YouTube(url)

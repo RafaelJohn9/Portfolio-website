@@ -10,6 +10,9 @@ youtube = build('youtube', 'v3', developerKey=api_key)
 
 def get_music_link(query):
     """uses the YouTube API to get the first music video link for a given query."""
+    
+    if query == "" or query is None:
+        raise ValueError("Invalid query")
     # Call the YouTube API to search for videos matching the query
     # pylint: disable=no-member
     search_response = youtube.search().list(
