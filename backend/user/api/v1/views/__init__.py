@@ -13,3 +13,4 @@ from api.v1.views.homepage import *
 from api.v1.views.recommendations_search import * 
 from api.v1.views.recommendations_recommend import *
 from api.v1.views.recommendations_recommended import *
+from api.v1.views.recommendations_download import *

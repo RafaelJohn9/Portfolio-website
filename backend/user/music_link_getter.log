@@ -1,0 +1,12 @@
+INFO:werkzeug:127.0.0.1 - - [23/May/2024 23:04:17] "GET /api/v1/user/music/download HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [23/May/2024 23:11:44] "GET /api/v1/user/music/download HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [23/May/2024 23:11:56] "[31m[1mGET /api/v1/user/music/download HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [23/May/2024 23:13:20] "GET /api/v1/user/music/download HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [23/May/2024 23:13:52] "[31m[1mGET /api/v1/user/music/download HTTP/1.1[0m" 400 -
+ERROR:root:VsUXe7Rfklw is streaming live and cannot be loaded
+ERROR:root:CnZNLCm_XuQ is streaming live and cannot be loaded
+ERROR:root:yJ2dPEE7oao is streaming live and cannot be loaded
+ERROR:root:CnZNLCm_XuQ is streaming live and cannot be loaded
+ERROR:root:CnZNLCm_XuQ is streaming live and cannot be loaded
+ERROR:root:CnZNLCm_XuQ is streaming live and cannot be loaded
+ERROR:root:CnZNLCm_XuQ is streaming live and cannot be loaded

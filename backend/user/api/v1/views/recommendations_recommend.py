@@ -2,16 +2,14 @@
 """
 Module for handling recommendations
 """
+from flask import request, jsonify, redirect, url_for
+from flask_login import login_required, current_user
 from api.v1.views import app_views
 from models import storage
 from models.recommendation import Recommendation
+from external_apis.music import fetch_tracks
 from external_apis.book import fetch_books
 from external_apis.movie import fetch_movies
-from external_apis.music import fetch_tracks
-from flask import request, jsonify
-from flask_login import login_required
-from flask_login import current_user
-from flask import redirect, url_for
 
 
 @app_views.route('/music/recommend', methods=['POST'])

@@ -2,7 +2,6 @@
 """
 Used to download books from PDF Drive.
 """
-
 import time
 import asyncio
 import logging
@@ -13,8 +12,6 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -22,8 +19,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 BASE_URL = "https://www.pdfdrive.com/"
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
+logging.basicConfig(
+                    filename="pdfdrive.log",
+                    level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s'
+                    )
 
 def first_page_parsing_and_searching(title: str) -> requests.Response:
     """
@@ -43,16 +43,22 @@ def first_page_parsing_and_searching(title: str) -> requests.Response:
             action = search_form.get('action')
             complete_url = urljoin(url, action)
 
-            response = requests.get(complete_url, params={input_field['name']: input_field['value']}, timeout=10)
+            response = requests.get(
+                                    complete_url,
+                                    params={input_field['name']: input_field['value']},
+                                    timeout=10
+                                    )
+
             response.raise_for_status()
 
             logging.info("Page one successful.")
             return response
-        except Exception as err:
-            logging.error("Error: %s", err)
+        except requests.exceptions.HTTPError as err:
+            logging.error("HTTP Error: %s", err)
             logging.info("Failed to retrieve the first webpage...retrying after 10 seconds")
             time.sleep(10)
-
+        except NoSuchElementException as err:
+            logging.error("Element not found: %s", err)
 
 def second_page(response: requests.Response) -> str:
     """
@@ -63,11 +69,7 @@ def second_page(response: requests.Response) -> str:
             if not response:
                 return ""
             link = BASE_URL
-
             soup = BeautifulSoup(response.content, "html.parser")
-            div = soup.find('div', class_='file-right')
-            a_tag = div.find('a')
-            link += a_tag.get('href')
 
             response = requests.get(link, timeout=10)
             response.raise_for_status()
@@ -79,10 +81,16 @@ def second_page(response: requests.Response) -> str:
 
             logging.info("Page two successful.")
             return progress_link
-        except Exception as err:
+        except requests.exceptions.HTTPError as err:
             logging.error("Error: %s", err)
             logging.info("Failed to retrieve the second webpage...retrying after 10 seconds")
             time.sleep(10)
+        except NoSuchElementException as err:
+            logging.error("Element not found: %s", err)
+            break
+        except AttributeError as err:
+            logging.error("Attribute error: %s", err)
+            break
 
 
 def third_page(progress_link: str) -> str:
@@ -99,16 +107,16 @@ def third_page(progress_link: str) -> str:
     download_link = ""
 
     driver.get(progress_link)
-    
+
     progress_bar_selectors = [
     "div[role='progressbar']",
     # Add more CSS selectors for additional progress bars if needed
     ]
-    
+
     a_tag_selectors = [
         "a.btn.btn-success.btn-responsive",
         "a.btn.btn-primary.btn-user"
-        # Add more CSS selectors for additional a_tag selectors if needed       
+        # Add more CSS selectors for additional a_tag selectors if needed
     ]
 
     while True:
@@ -120,7 +128,7 @@ def third_page(progress_link: str) -> str:
                     progress = progress_bar.get_attribute('aria-valuenow')
                     break  # Exit the loop if a progress bar is found
                 except NoSuchElementException:
-                    continue 
+                    continue
 
             if int(progress) >= 100:
                 logging.info("Download completed.")
@@ -129,10 +137,11 @@ def third_page(progress_link: str) -> str:
                         a_tag = driver.find_element(By.CSS_SELECTOR, selector)
                         break  # Exit the loop if a progress bar is found
                     except NoSuchElementException:
-                        continue 
+                        continue
                 download_link = a_tag.get_attribute('href')
                 logging.info("Download Link: %s", download_link)
                 break
+        # pylint: disable=W0718
         except Exception as err:
             logging.error("Error: %s", err)
             break
@@ -155,28 +164,31 @@ def get_download_url(title: str) -> str:
     return download_link
 
 
-async def process_query(query: str, file):
+async def process_query(query: str, output_file):
     """
-    Process each query asynchronously and write the download link to a file.
+    Process a query and write the download link to the output file.
     """
-    query = query.strip()
     try:
-        download_link = await asyncio.get_event_loop().run_in_executor(None, get_download_url, query)
+        download_link = await asyncio.get_event_loop().run_in_executor(
+                                                                        None,
+                                                                        get_download_url,
+                                                                        query
+                                                                        )
         if download_link:
-            file.write(download_link + '\n')
+            output_file.write(download_link + '\n')
         else:
             logging.warning("No download link found for query: %s", query)
+    # pylint: disable=W0718
     except Exception as err:
         logging.error("Error processing query '%s': %s", query, err)
 
 
 if __name__ == '__main__':
     queries = []
-    with open('example_booklist.txt', 'r') as file:
+    with open("example_booklist.txt", "r", encoding='utf-8') as file:
         queries = file.readlines()
 
-    with open('download_links.txt', 'w') as file:
-        loop = asyncio.get_event_loop()
-        tasks = [process_query(query, file) for query in queries]
-        loop.run_until_complete(asyncio.gather(*tasks))
-        loop.close()
+    with open("download_links.txt", "w", encoding='utf-8') as output_file:
+        for query in queries:
+            asyncio.run(process_query(query.strip(), output_file))
+            time.sleep(10)

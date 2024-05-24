@@ -11,3 +11,4 @@ flask_login==0.6.3
 flask_cors==3.0.8
 flasgger==0.9.7.1
 gunicorn==22.0.0
+pytube==15.0.0
