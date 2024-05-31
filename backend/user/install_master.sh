@@ -30,4 +30,4 @@ docker run -d --env-file ~/Portfolio-website/backend/user/.api_keys.env -t -p 50
      "service mariadb start && 
      cat models/engine/db.sql | mysql -uroot &&\
      source .api_keys.env  && \
-     gunicorn -b 0.0.0.0:5000 --chdir ./api/v1 app:app"
+     python3 ./run.py"
