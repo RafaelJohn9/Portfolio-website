@@ -19,7 +19,8 @@ def get_music_link(query):
         q=query,
         part='id',
         maxResults=1,
-        type='video'
+        type='video',
+        regionCode='KE'
     ).execute()
 
     # Extract the first video ID from the search results
