@@ -7,7 +7,7 @@ from subprocess import run
 
 
 # Load environment variables from .env file
-load_dotenv('.env')
+load_dotenv('.api_keys.env')
 
 # Run Gunicorn with your application
 run(["gunicorn", "-b", "0.0.0.0:5000", "--chdir", "./api/v1", "app:app"])
