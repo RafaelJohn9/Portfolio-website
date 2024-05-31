@@ -10,4 +10,4 @@ from subprocess import run
 load_dotenv('.env')
 
 # Run Gunicorn with your application
-run(["gunicorn", "-b ",  "0.0.0.0:5000 " " --chdir " "./api/v1 ", " app:app"])
+run(["gunicorn", "-b", "0.0.0.0:5000", "--chdir", "./api/v1", "app:app"])
