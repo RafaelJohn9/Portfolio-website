@@ -4,7 +4,7 @@ from flask import request, jsonify
 from api.v1.views import app_views
 from external_apis.music_downloader.main import music_downloader
 
-@app_views.route('/music/download', methods=['GET'])
+@app_views.route('/music/download', methods=['POST'])
 def download_music():
     """defining route for downloading music"""
     data = request.get_json()
