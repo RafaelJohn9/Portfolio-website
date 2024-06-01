@@ -7,12 +7,14 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
-import recommend from '../middleware/recommend';
-
+import spotify from '../imgs/spotify.png'
+import download from '../imgs/download.png'
+import loading from '../imgs/loading.gif'
 
 const GetMusic = ({ query }) => {
     const [music, setMusic] = useState([]);
     const [error, setError] = useState(null);
+    const [downloadLink, setDownloadLink] = useState(false)
 
     useEffect(() => {
         const fetchMusic = async () => {
@@ -39,7 +41,7 @@ const GetMusic = ({ query }) => {
     const [playingIndex, setPlayingIndex] = useState(null); // Track index of currently playing track
 
     return show ? (
-        <div className='pl-10 h-full w-full text-white italic font-custom flex flex-wrap gap-32'>
+        <div className='pl-10 flex-grow text-white italic font-custom flex flex-wrap gap-32'>
             {music.length === 0 ? (
                 <h1 className='text-4xl'>No results found</h1>
             ) : (
@@ -48,7 +50,7 @@ const GetMusic = ({ query }) => {
                         return null;
                     }
                     return (
-                        <div key={index} className='bg-grey-500 h-64 w-60 mb-48 md:ml-0 sm:ml-16 mt-16 relative group'>
+                        <div key={index} className='bg-grey-500 h-64 w-60  md:ml-0 sm:ml-16 relative group mb-36 mt-28'>
                             <div className='h-1/2'></div>
                             <img src={track['Album Artwork']} alt="" />
 
@@ -57,9 +59,9 @@ const GetMusic = ({ query }) => {
                                 {track['Preview URL or Track URI'].startsWith('https') ? (
                                     <div>
                                         {playingIndex === index ? (
-                                            <button onClick={() => setPlayingIndex(null)}><img width="100" height="100" src="https://img.icons8.com/ios/100/pause--v1.png" alt="Pause"/></button>
+                                            <button onClick={() => setPlayingIndex(null)}><img className='h-12 w-12' src="https://img.icons8.com/ios/100/pause--v1.png" alt="Pause"/></button>
                                         ) : (
-                                            <button onClick={() => setPlayingIndex(index)}><img width="100" height="100" src="https://img.icons8.com/ios-filled/100/circled-play.png" alt="Play"/></button>
+                                            <button onClick={() => setPlayingIndex(index)}><img className='h-12 w-12' src="https://img.icons8.com/ios-filled/100/circled-play.png" alt="Play"/></button>
                                         )}
                                         {playingIndex === index && 
                                             <iframe 
@@ -75,11 +77,10 @@ const GetMusic = ({ query }) => {
                             </div>
                             <p className='text-center'>Artist: {track['Artist(s) Name']}</p>
                             <p className='text-center'>Release Date: {track['release_date']}</p>
-                            <button className='ml-6 bg-red-600 font-custom hover:bg-red-800 rounded-full mt-5 text-black w-4/5' onClick={async (event) => {
-                                    event.target.innerText = 'Recommended';
-                                    await recommend(music);
-                            }}>Recommend</button>
-                            <a href={track['Direct Link']} target='_blank' rel='noreferrer' className="font-extrabold text-red-400">Song Direct Link</a>
+                            <div className='flex justify-around'>
+                                <a href={track['Direct Link']} target='_blank' rel='noreferrer' className="mt-4 font-extrabold text-red-400"><img src={spotify} className='rounded-full h-12 w-12' alt="" /></a>
+                                <a href={track['Direct Link']} target='_blank' rel='noreferrer' className="mt-4 font-extrabold text-red-400"><img src={downloadLink ? download : loading } className='rounded-full h-12 w-12' alt="" /></a>
+                            </div>
                         </div>
                     );
                 })
@@ -121,10 +122,6 @@ const MusicSearched = () => {
         <div className="min-h-screen h-screen w-screen  min-w-screen overflow-x-hidden bg-gradient-to-tr from-blue-950 to-[#000000]">
             <NavBar />
             <div>
-        <motion.div className="absolute w-40 h-40 bg-green-900 rounded-full animate-pulse opacity-20 blur-lg" 
-        animate={{ scale: [0.9, 1.1], opacity: [0.1, 0.6] }} 
-        transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }} 
-      />
       <motion.div className="absolute w-32 h-32 bg-green-900 rounded-full animate-pulse opacity-20 blur-lg" 
         style={{ top: "30%", left: "20%" }} 
         animate={{ scale: [0.8, 1.2], opacity: [0.1, 0.6] }} 
