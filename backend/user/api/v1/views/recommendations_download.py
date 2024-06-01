@@ -14,6 +14,6 @@ def download_music():
     if not query or query == '':
         return jsonify({'error': 'query not entered'}), 400
 
-    return jsonify(music_downloader(query)), 200
+    return jsonify({"url": music_downloader(query)}), 200
 
 
