@@ -10,8 +10,4 @@ from subprocess import run
 load_dotenv('.api_keys.env')
 
 # Run Gunicorn with your application
-<<<<<<< Updated upstream
 run(["gunicorn", "-b", "0.0.0.0:5000", "--chdir", "./api/v1", "app:app"])
-=======
-run(["gunicorn", "-b ",  " 0.0.0.0:5000 " " --chdir " "./api/v1 "," app:app "])
->>>>>>> Stashed changes
