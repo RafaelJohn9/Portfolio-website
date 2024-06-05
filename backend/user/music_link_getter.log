@@ -1,13 +1,108 @@
-INFO:werkzeug:127.0.0.1 - - [23/May/2024 23:04:17] "GET /api/v1/user/music/download HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [23/May/2024 23:11:44] "GET /api/v1/user/music/download HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [23/May/2024 23:11:56] "[31m[1mGET /api/v1/user/music/download HTTP/1.1[0m" 400 -
-INFO:werkzeug:127.0.0.1 - - [23/May/2024 23:13:20] "GET /api/v1/user/music/download HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [23/May/2024 23:13:52] "[31m[1mGET /api/v1/user/music/download HTTP/1.1[0m" 400 -
-ERROR:root:VsUXe7Rfklw is streaming live and cannot be loaded
-ERROR:root:CnZNLCm_XuQ is streaming live and cannot be loaded
-ERROR:root:yJ2dPEE7oao is streaming live and cannot be loaded
-ERROR:root:CnZNLCm_XuQ is streaming live and cannot be loaded
-ERROR:root:CnZNLCm_XuQ is streaming live and cannot be loaded
-ERROR:root:CnZNLCm_XuQ is streaming live and cannot be loaded
-ERROR:root:CnZNLCm_XuQ is streaming live and cannot be loaded
-INFO:werkzeug:127.0.0.1 - - [31/May/2024 08:12:32] "POST /api/v1/user/music/download HTTP/1.1" 200 -
+ERROR:app:Exception on /api/v1/user/music/download [POST]
+Traceback (most recent call last):
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/mnt/sdb1/repositories/Portfolio-website/backend/user/api/v1/views/recommendations_download.py", line 26, in download_music
+    response = make_response(send_file(audio_file_path, mimetype='audio/mpeg'))
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/helpers.py", line 499, in send_file
+    return werkzeug.utils.send_file(  # type: ignore[return-value]
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/werkzeug/utils.py", line 428, in send_file
+    stat = os.stat(path)
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/sdb1/repositories/Portfolio-website/backend/user/api/v1/Halo.mp4'
+INFO:werkzeug:127.0.0.1 - - [05/Jun/2024 21:58:04] "[35m[1mPOST /api/v1/user/music/download HTTP/1.1[0m" 500 -
+ERROR:app:Exception on /api/v1/user/music/download [POST]
+Traceback (most recent call last):
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/mnt/sdb1/repositories/Portfolio-website/backend/user/api/v1/views/recommendations_download.py", line 26, in download_music
+    response = make_response(send_file(audio_file_path, mimetype='audio/mpeg'))
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/helpers.py", line 499, in send_file
+    return werkzeug.utils.send_file(  # type: ignore[return-value]
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/werkzeug/utils.py", line 428, in send_file
+    stat = os.stat(path)
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/sdb1/repositories/Portfolio-website/backend/user/api/v1/Halo.mp4'
+INFO:werkzeug:127.0.0.1 - - [05/Jun/2024 21:58:23] "[35m[1mPOST /api/v1/user/music/download HTTP/1.1[0m" 500 -
+ERROR:app:Exception on /api/v1/user/music/download [POST]
+Traceback (most recent call last):
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/mnt/sdb1/repositories/Portfolio-website/backend/user/api/v1/views/recommendations_download.py", line 26, in download_music
+    response = make_response(send_file(music_downloader(query), mimetype='audio/mpeg'))
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/helpers.py", line 499, in send_file
+    return werkzeug.utils.send_file(  # type: ignore[return-value]
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/werkzeug/utils.py", line 428, in send_file
+    stat = os.stat(path)
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/sdb1/repositories/Portfolio-website/backend/user/api/v1/Halo.mp4'
+INFO:werkzeug:127.0.0.1 - - [05/Jun/2024 22:00:21] "[35m[1mPOST /api/v1/user/music/download HTTP/1.1[0m" 500 -
+ERROR:app:Exception on /api/v1/user/music/download [POST]
+Traceback (most recent call last):
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/mnt/sdb1/repositories/Portfolio-website/backend/user/api/v1/views/recommendations_download.py", line 26, in download_music
+    return music_downloader(query)
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/helpers.py", line 499, in send_file
+    return werkzeug.utils.send_file(  # type: ignore[return-value]
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/werkzeug/utils.py", line 428, in send_file
+    stat = os.stat(path)
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/sdb1/repositories/Portfolio-website/backend/user/api/v1/Halo.mp4'
+INFO:werkzeug:127.0.0.1 - - [05/Jun/2024 22:01:11] "[35m[1mPOST /api/v1/user/music/download HTTP/1.1[0m" 500 -
+ERROR:app:Exception on /api/v1/user/music/download [POST]
+Traceback (most recent call last):
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/mnt/sdb1/repositories/Portfolio-website/backend/user/api/v1/views/recommendations_download.py", line 26, in download_music
+    return music_downloader(query)
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/flask/helpers.py", line 499, in send_file
+    return werkzeug.utils.send_file(  # type: ignore[return-value]
+  File "/home/johnmkagunda/.local/lib/python3.10/site-packages/werkzeug/utils.py", line 428, in send_file
+    stat = os.stat(path)
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/sdb1/repositories/Portfolio-website/backend/user/api/v1/Halo.mp4'
+INFO:werkzeug:127.0.0.1 - - [05/Jun/2024 22:01:18] "[35m[1mPOST /api/v1/user/music/download HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [05/Jun/2024 22:01:30] "POST /api/v1/user/music/download HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [05/Jun/2024 22:36:47] "POST /api/v1/user/music/download HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [05/Jun/2024 22:41:03] "POST /api/v1/user/music/download HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [05/Jun/2024 22:54:36] "POST /api/v1/user/music/download HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [05/Jun/2024 22:56:48] "[31m[1mGET /api/v1/user/music/download HTTP/1.1[0m" 405 -
+INFO:werkzeug:127.0.0.1 - - [05/Jun/2024 22:56:48] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [05/Jun/2024 22:58:19] "POST /api/v1/user/music/download HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [05/Jun/2024 22:59:19] "POST /api/v1/user/music/download HTTP/1.1" 200 -

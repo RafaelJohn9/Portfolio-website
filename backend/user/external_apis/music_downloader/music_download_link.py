@@ -14,10 +14,10 @@ def music_download_link(url):
         # Get the audio stream with the highest bitrate
         audio_stream = video.streams.get_audio_only()
 
-        # Get the download link for the audio stream
-        download_link = audio_stream.url
-
-        return download_link
+        # Download the audio stream
+        audio_stream.download()
+        # Return the path of the downloaded audio file
+        return audio_stream.default_filename
     # pylint: disable=broad-except
     except Exception as e:
         # Configure logging

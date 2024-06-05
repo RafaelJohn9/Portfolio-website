@@ -11,8 +11,8 @@ def music_downloader(query):
         raise ValueError("Invalid query")
     try:
         music_link = get_music_link(query)
-        download_link = music_download_link(music_link)
-        return download_link
+        download = music_download_link(music_link)
+        return download
     # pylint: disable=broad-except
     except Exception as e:
         logging.basicConfig(filename='main.log', level=logging.ERROR)
