@@ -1,57 +1,32 @@
-async function getMusicUrl(music_query) {
-    const url = 'https://www.johnmkagunda.me/api/v1/user/music/download';
-
+/**
+ * 
+ * @returns the music file download
+ */
+const downloadMusic = async (query) => {
     try {
-        const response = await fetch(url, {
+        const response = await fetch('https://www.johnmkagunda.me/api/v1/user/music/download', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ query: music_query })
+            body: JSON.stringify({ query: query }),
         });
 
-        if (response.ok) {
-            const data = await response.json();
-            const { url } = data;
-
-            if (isValidUrl(url)) {
-                return url;
-            }
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
 
-        return null;
-    } catch (error) {
-        console.error('Error:', error);
-        return null;
-    }
-}
-
-function isValidUrl(url) {
-    try {
-        new URL(url);
-        return true;
-    } catch (error) {
-        return false;
-    }
-}
-
-async function downloadMusic(url) {
-    try {
-        const response = await fetch(url);
-        if (response.ok) {
-            const blob = await response.blob();
-            const downloadUrl = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.download = 'music.mp3';
-            link.click();
-        } else {
-            return null;
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = query + '.mp3'; // you can set the filename here
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        } catch (error) {
+        console.error('Error downloading the file:', error);
         }
-    } catch (error) {
-        console.error('Error:', error);
-        return null;
-    }
-}
-
-export { getMusicUrl, downloadMusic }
+  };
+export { downloadMusic };

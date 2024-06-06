@@ -10,6 +10,8 @@ async function musicSearch(musicName) {
 
         // If response status is 200, return the JSON data
         if (response.status === 200) {
+            const musicName = response.data['Track Name'];
+            const artist = response.data['Artist(s) Name'];
             return response.data;
         } else {
             // Handle unexpected status codes
