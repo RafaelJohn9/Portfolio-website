@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import BackGroundMusicImage from '../imgs/BackGroundMusic.jpg'
-import NavBar from '../components/CommonComponents/NavBar';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -32,8 +31,7 @@ const MusicSearch = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${BackGroundMusicImage})` }}>
-            <NavBar />
-            <div className="flex mt-52 md:mt-64 rounded-lg border-0 md:w-1/2 sm:w-full lg:mt-96">
+            <div className="flex mt-48 md:mt-56 rounded-lg border-0 md:w-1/2 sm:w-full lg:mt-96 gap-5">
                 <input
                     type="text" required
                     value={search}

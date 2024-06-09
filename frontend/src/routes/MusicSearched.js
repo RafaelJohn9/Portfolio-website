@@ -1,4 +1,3 @@
-import NavBar from '../components/CommonComponents/NavBar';
 import musicSearch from '../middleware/music';
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -129,7 +128,6 @@ const MusicSearched = () => {
 
     return (
         <div className="min-h-screen h-screen w-screen min-w-screen overflow-x-hidden bg-gradient-to-tr from-blue-950 to-[#000000]">
-            <NavBar />
             <div>
                 <motion.div className="absolute w-32 h-32 bg-green-900 rounded-full animate-pulse opacity-20 blur-lg" 
                     style={{ top: "30%", left: "20%" }} 
@@ -163,7 +161,7 @@ const MusicSearched = () => {
                 />
             </div>
             <div className="w-full h-full">
-                <div className="flex rounded-lg border-0 md:w-1/2 sm:w-full pt-24 justify-center items-center">
+                <div className="flex rounded-lg border-0 md:w-1/2 sm:w-full pt-6 pr-6 pl-6 justify-center items-center gap-3">
                     <input
                         type="text" required
                         value={searchTerm}
