@@ -76,6 +76,7 @@ const GetMusic = ({ query }) => {
                                                 frameBorder="0"
                                                 allowTransparency="true"
                                                 autoPlay={false}
+                                                id='play-btn'
                                             ></iframe>
                                         }
                                     </div>
@@ -87,7 +88,7 @@ const GetMusic = ({ query }) => {
                                 <a href={track['Direct Link']} target='_blank' rel='noreferrer' className="mt-4 font-extrabold text-red-400">
                                     <img src={spotify} className='rounded-full h-12 w-12' alt="" />
                                 </a>
-                                <button onClick={() => handleClick(index, track)} className="mt-4 font-extrabold text-red-400">
+                                <button onClick={() => handleClick(index, track)} className="mt-4 font-extrabold text-red-400" id='music-download-btn'>
                                     <img src={downloadStates[index] === 'loading' ? loading : download} className='rounded-full h-12 w-12' alt="" />
                                 </button>
                             </div>
