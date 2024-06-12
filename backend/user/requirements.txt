@@ -14,3 +14,4 @@ gunicorn>=22.0.0
 pytube>=15.0.0
 google-api-python-client>=2.119.0
 python-dotenv>=1.0.1
+bs4>=0.0.1
