@@ -1,6 +1,24 @@
-2024-05-22 08:25:24,475 - ERROR - Error processing query 'The Book Thief by Markus Zusak': HTTPSConnectionPool(host='www.pdfdrive.com', port=443): Read timed out. (read timeout=10)
-2024-05-22 08:25:44,758 - ERROR - Error processing query 'A Brief History of Time by Stephen Hawking': HTTPSConnectionPool(host='www.pdfdrive.com', port=443): Read timed out. (read timeout=10)
-2024-05-22 08:26:04,926 - ERROR - Error processing query 'The Diary of a Young Girl by Anne Frank': HTTPSConnectionPool(host='www.pdfdrive.com', port=443): Read timed out. (read timeout=10)
-2024-05-22 09:11:47,732 - ERROR - Error processing query 'The Book Thief by Markus Zusak': HTTPSConnectionPool(host='www.pdfdrive.com', port=443): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x790c05a48bb0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
-2024-05-22 09:12:17,764 - ERROR - Error processing query 'A Brief History of Time by Stephen Hawking': HTTPSConnectionPool(host='www.pdfdrive.com', port=443): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x790c05a49720>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
-2024-05-22 09:12:59,410 - ERROR - Error processing query 'The Diary of a Young Girl by Anne Frank': HTTPSConnectionPool(host='www.pdfdrive.com', port=443): Read timed out. (read timeout=10)
+2024-06-12 15:56:19,253 - INFO - Page one successful.
+2024-06-12 15:56:20,636 - INFO - Page two successful.
+2024-06-12 15:56:20,638 - INFO - ====== WebDriver manager ======
+2024-06-12 15:56:20,743 - INFO - Get LATEST chromedriver version for google-chrome
+2024-06-12 15:56:21,740 - INFO - Get LATEST chromedriver version for google-chrome
+2024-06-12 15:56:22,673 - INFO - Driver [/home/johnmkagunda/.wdm/drivers/chromedriver/linux64/126.0.6478.55/chromedriver-linux64/chromedriver] found in cache
+2024-06-12 15:56:36,952 - INFO - Download completed.
+2024-06-12 15:56:37,002 - INFO - Download Link: https://www.pdfdrive.com/download.pdf?id=136494023&h=1aa480a89378f61c111d68cdd8632b97&u=cache&ext=pdf
+2024-06-12 16:07:05,207 - INFO - Page one successful.
+2024-06-12 16:07:06,512 - INFO - Page two successful.
+2024-06-12 16:07:06,514 - INFO - ====== WebDriver manager ======
+2024-06-12 16:07:06,615 - INFO - Get LATEST chromedriver version for google-chrome
+2024-06-12 16:07:07,709 - INFO - Get LATEST chromedriver version for google-chrome
+2024-06-12 16:07:08,545 - INFO - Driver [/home/johnmkagunda/.wdm/drivers/chromedriver/linux64/126.0.6478.55/chromedriver-linux64/chromedriver] found in cache
+2024-06-12 16:07:21,499 - INFO - Download completed.
+2024-06-12 16:07:21,542 - INFO - Download Link: https://www.pdfdrive.com/download.pdf?id=156720180&h=28ae336fe5f3d3b5707105226f11582b&u=cache&ext=epub
+2024-06-12 16:12:20,156 - INFO - Page one successful.
+2024-06-12 16:12:21,511 - INFO - Page two successful.
+2024-06-12 16:12:21,512 - INFO - ====== WebDriver manager ======
+2024-06-12 16:12:21,604 - INFO - Get LATEST chromedriver version for google-chrome
+2024-06-12 16:12:22,508 - INFO - Get LATEST chromedriver version for google-chrome
+2024-06-12 16:12:23,433 - INFO - Driver [/home/johnmkagunda/.wdm/drivers/chromedriver/linux64/126.0.6478.55/chromedriver-linux64/chromedriver] found in cache
+2024-06-12 16:12:37,675 - INFO - Download completed.
+2024-06-12 16:12:37,715 - INFO - Download Link: https://www.pdfdrive.com/download.pdf?id=184140083&h=4901c635a5686ad05860f54a609fadb7&u=cache&ext=pdf

@@ -5,12 +5,12 @@ after given a title
 """
 import requests
 
-def get_book_download_link(title):
+def get_download_url(title):
     """
     the function used to get the downlod link of the book from the gutendex API
     """
     # Make a GET request to the Gutendex API
-    response = requests.get(f"https://gutendex.com/books/?search={title}")
+    response = requests.get(f"https://gutendex.com/books/?search={title}", timeout=10)
 
     # Check if the request was successful
     if response.status_code == 200:
@@ -27,13 +27,13 @@ def get_book_download_link(title):
 
             return download_link
         else:
-            return "No books found with that title."
+            return None
     else:
-        return "Error occurred while querying the Gutendex API."
+        return None
 
 
 if __name__ == '__main__':
     # Example usage
-    book_title = "Great expectations"
-    download_link = get_book_download_link(book_title)
-    print(download_link)
+    BOOK_TITLE = input("Enter the book title: ")
+    book_download_link = get_download_url(BOOK_TITLE)
+    print(book_download_link)

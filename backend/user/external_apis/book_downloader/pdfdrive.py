@@ -3,7 +3,6 @@
 Used to download books from PDF Drive.
 """
 import time
-import asyncio
 import logging
 from urllib.parse import urljoin
 
@@ -68,23 +67,24 @@ def second_page(response: requests.Response) -> str:
         try:
             if not response:
                 return ""
-            link = BASE_URL
-            soup = BeautifulSoup(response.content, "html.parser")
-
-            response = requests.get(link, timeout=10)
-            response.raise_for_status()
 
             soup = BeautifulSoup(response.content, "html.parser")
-            span = soup.find('span', id='download-button')
-            a_tag = span.find('a')
-            progress_link = BASE_URL + a_tag.get('href')
+            div = soup.find('div', class_='file-right')
+            a_tag = div.find('a')
+            page_link = BASE_URL + a_tag.get('href')
+            page_response = requests.get(page_link, timeout=10)
+            soup = BeautifulSoup(page_response.content, "html.parser")
+            download_button = soup.find('span', id='download-button')
+            a_tag = download_button.find('a')
+            progress_link = a_tag.get('href')
 
             logging.info("Page two successful.")
-            return progress_link
+            return BASE_URL + progress_link
+
         except requests.exceptions.HTTPError as err:
             logging.error("Error: %s", err)
-            logging.info("Failed to retrieve the second webpage...retrying after 10 seconds")
-            time.sleep(10)
+            logging.info("Failed to retrieve the second webpage...retrying after 5 seconds")
+            time.sleep(5)
         except NoSuchElementException as err:
             logging.error("Element not found: %s", err)
             break
@@ -109,7 +109,8 @@ def third_page(progress_link: str) -> str:
     driver.get(progress_link)
 
     progress_bar_selectors = [
-    "div[role='progressbar']",
+    'div.progress-bar.progress-bar-striped.progress-bar-animated',
+    "div.progress-bar",
     # Add more CSS selectors for additional progress bars if needed
     ]
 
@@ -129,6 +130,9 @@ def third_page(progress_link: str) -> str:
                     break  # Exit the loop if a progress bar is found
                 except NoSuchElementException:
                     continue
+            if not progress:
+                logging.info("Progress not found.")
+                break
 
             if int(progress) >= 100:
                 logging.info("Download completed.")
@@ -155,40 +159,23 @@ def get_download_url(title: str) -> str:
     Main function of the script to get the download URL for a book title.
     """
     first_page_response = first_page_parsing_and_searching(title)
+
     if not first_page_response:
-        raise ValueError("Failed to parse the first page.")
+        return None
+
     second_page_response = second_page(first_page_response)
+
     if not second_page_response:
-        raise ValueError("Failed to parse the second page.")
+        return None
+
     download_link = third_page(second_page_response)
+
     return download_link
 
-
-async def process_query(query: str, output_file):
-    """
-    Process a query and write the download link to the output file.
-    """
-    try:
-        download_link = await asyncio.get_event_loop().run_in_executor(
-                                                                        None,
-                                                                        get_download_url,
-                                                                        query
-                                                                        )
-        if download_link:
-            output_file.write(download_link + '\n')
-        else:
-            logging.warning("No download link found for query: %s", query)
-    # pylint: disable=W0718
-    except Exception as err:
-        logging.error("Error processing query '%s': %s", query, err)
-
-
 if __name__ == '__main__':
-    queries = []
-    with open("example_booklist.txt", "r", encoding='utf-8') as file:
-        queries = file.readlines()
-
-    with open("download_links.txt", "w", encoding='utf-8') as output_file:
-        for query in queries:
-            asyncio.run(process_query(query.strip(), output_file))
-            time.sleep(10)
+    BOOK_TITLE = input("Enter the book title: ")
+    book_download_link = get_download_url(BOOK_TITLE)
+    if book_download_link:
+        print(book_download_link)
+    else:
+        print("Book not found")

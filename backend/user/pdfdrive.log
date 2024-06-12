@@ -1,0 +1,21 @@
+2024-06-12 16:26:51,094 - INFO - file_cache is only supported with oauth2client<4.0.0
+2024-06-12 16:27:45,880 - INFO - file_cache is only supported with oauth2client<4.0.0
+2024-06-12 16:28:44,999 - INFO - file_cache is only supported with oauth2client<4.0.0
+2024-06-12 16:31:36,681 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+2024-06-12 16:31:36,681 - INFO - [33mPress CTRL+C to quit[0m
+2024-06-12 16:34:07,033 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+2024-06-12 16:34:07,033 - INFO - [33mPress CTRL+C to quit[0m
+2024-06-12 16:35:37,673 - INFO - 127.0.0.1 - - [12/Jun/2024 16:35:37] "[31m[1mPOST / HTTP/1.1[0m" 405 -
+2024-06-12 16:35:49,441 - INFO - 127.0.0.1 - - [12/Jun/2024 16:35:49] "[31m[1mPOST / HTTP/1.1[0m" 405 -
+2024-06-12 16:36:17,761 - INFO - 127.0.0.1 - - [12/Jun/2024 16:36:17] "POST /api/v1/user/book/download HTTP/1.1" 200 -
+2024-06-12 16:37:16,535 - INFO - Page one successful.
+2024-06-12 16:37:17,758 - INFO - Page two successful.
+2024-06-12 16:37:17,760 - INFO - ====== WebDriver manager ======
+2024-06-12 16:37:17,853 - INFO - Get LATEST chromedriver version for google-chrome
+2024-06-12 16:37:18,705 - INFO - Get LATEST chromedriver version for google-chrome
+2024-06-12 16:37:19,571 - INFO - Driver [/home/johnmkagunda/.wdm/drivers/chromedriver/linux64/126.0.6478.55/chromedriver-linux64/chromedriver] found in cache
+2024-06-12 16:37:33,194 - INFO - Download completed.
+2024-06-12 16:37:33,239 - INFO - Download Link: https://www.pdfdrive.com/download.pdf?id=162146986&h=b75bcf6803e72e63062886dbcd45a676&u=cache&ext=pdf
+2024-06-12 16:37:33,307 - INFO - 127.0.0.1 - - [12/Jun/2024 16:37:33] "POST /api/v1/user/book/download HTTP/1.1" 200 -
