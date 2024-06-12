@@ -29,4 +29,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 # EXPOSE 5000
 
 # Define the command to run your application
-CMD ["python3", "run.py"]
+CMD ["bash"]
