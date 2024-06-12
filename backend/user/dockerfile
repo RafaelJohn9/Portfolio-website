@@ -1,19 +1,26 @@
 # Use a Python 3 base image
 FROM python:3
 
+# Update and install necessary packages
 RUN apt-get update && \
-    apt-get install -y
+    apt-get install -y wget gnupg unzip
 
-# Install google-chrome
-RUN apt-get update && apt-get install -y wget gnupg
-RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-RUN apt-get update && apt-get install -y google-chrome-stable
+# Install Google Chrome
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
+    apt-get update && \
+    apt-get install -y google-chrome-stable
 
-# Install MySQL client
-RUN apt-get install -y default-mysql-client &&\
-    apt-get install -y default-mysql-server &&\
-    rm -rf /var/lib/apt/lists/*
+# Install ChromeDriver
+RUN CHROME_VERSION=$(google-chrome --version | cut -d ' ' -f 3 | cut -d '.' -f 1) && \
+    DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}) && \
+    wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip && \
+    unzip /tmp/chromedriver.zip -d /usr/local/bin/ && \
+    rm /tmp/chromedriver.zip
+
+# Install MySQL client and server
+# RUN apt-get install -y default-mysql-client default-mysql-server && \
+#     rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
@@ -22,21 +29,21 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# installing gunicorn and tmux
+# Install Gunicorn and Tmux
+RUN pip install gunicorn && \
+    apt-get install -y tmux
 
 # Copy your Python application code
-
-# install api_keys to environ var
-
+COPY . .
 
 # Set up environment variables
-ENV MYSQL_HOST=localhost \
-    MYSQL_USER=root \
-    MYSQL_PASSWORD=secret \
-    MYSQL_DATABASE=mydatabase
-    
+# ENV MYSQL_HOST=localhost \
+#     MYSQL_USER=root \
+#     MYSQL_PASSWORD=secret \
+#     MYSQL_DATABASE=mydatabase
+
 # Expose port 5000
 EXPOSE 5000
 
 # Define the command to run your application
-CMD ["bash"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "your_app:app"]

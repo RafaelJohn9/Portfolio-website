@@ -12,6 +12,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
 # Global variables
@@ -100,8 +101,10 @@ def third_page(progress_link: str) -> str:
     if not progress_link:
         return ""
 
-    options = webdriver.ChromeOptions()
+    options = Options()
     options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     webdriver_service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=webdriver_service, options=options)
     download_link = ""
@@ -109,9 +112,9 @@ def third_page(progress_link: str) -> str:
     driver.get(progress_link)
 
     progress_bar_selectors = [
-    'div.progress-bar.progress-bar-striped.progress-bar-animated',
-    "div.progress-bar",
-    # Add more CSS selectors for additional progress bars if needed
+        'div.progress-bar.progress-bar-striped.progress-bar-animated',
+        "div.progress-bar",
+        # Add more CSS selectors for additional progress bars if needed
     ]
 
     a_tag_selectors = [
@@ -145,7 +148,6 @@ def third_page(progress_link: str) -> str:
                 download_link = a_tag.get_attribute('href')
                 logging.info("Download Link: %s", download_link)
                 break
-        # pylint: disable=W0718
         except Exception as err:
             logging.error("Error: %s", err)
             break

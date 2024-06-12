@@ -27,7 +27,4 @@ fi
 
 # Connect container's MySQL db to the external MySQL
 docker run -d  --env-file ~/Portfolio-website/backend/user/.api_keys.env -t -p 5000:5000 -v mariadb_data:/var/lib/mysql -v ${PWD}:/app "$DOCKER_IMAGE" /bin/bash -c \
-     "service mariadb start && 
-     cat models/engine/db.sql | mysql -uroot &&\
-     source .api_keys.env  && \
-     python3 ./run.py"
+     "python3 ./run.py"

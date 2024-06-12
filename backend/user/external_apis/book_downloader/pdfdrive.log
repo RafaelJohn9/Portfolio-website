@@ -22,3 +22,11 @@
 2024-06-12 16:12:23,433 - INFO - Driver [/home/johnmkagunda/.wdm/drivers/chromedriver/linux64/126.0.6478.55/chromedriver-linux64/chromedriver] found in cache
 2024-06-12 16:12:37,675 - INFO - Download completed.
 2024-06-12 16:12:37,715 - INFO - Download Link: https://www.pdfdrive.com/download.pdf?id=184140083&h=4901c635a5686ad05860f54a609fadb7&u=cache&ext=pdf
+2024-06-12 19:47:58,466 - INFO - Page one successful.
+2024-06-12 19:47:59,208 - INFO - Page two successful.
+2024-06-12 19:47:59,209 - INFO - ====== WebDriver manager ======
+2024-06-12 19:47:59,311 - INFO - Get LATEST chromedriver version for google-chrome
+2024-06-12 19:48:00,173 - INFO - Get LATEST chromedriver version for google-chrome
+2024-06-12 19:48:00,535 - INFO - Driver [/home/johnmkagunda/.wdm/drivers/chromedriver/linux64/126.0.6478.55/chromedriver-linux64/chromedriver] found in cache
+2024-06-12 19:48:13,141 - INFO - Download completed.
+2024-06-12 19:48:13,185 - INFO - Download Link: https://www.pdfdrive.com/download.pdf?id=28135180&h=f08dfdcc1f13bbacaa4fc94ec90f9cd1&u=cache&ext=pdf
