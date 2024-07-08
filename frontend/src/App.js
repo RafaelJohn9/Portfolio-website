@@ -2,8 +2,6 @@ import React from 'react';
 import {createBrowserRouter, RouterProvider}from 'react-router-dom';
 import HomePage from './routes/HomePage';
 import Page404 from './routes/404Page';
-import LoginPage from './routes/LoginPage'
-import RegisterPage from './routes/RegisterPage'
 import MoviesSearch from './routes/MoviesSearch';
 import MusicSearch from './routes/MusicSearch';
 import Books from './routes/Books';
@@ -18,16 +16,6 @@ function App() {
         {
             path: '/',
             element: <HomePage />,
-            errorElement: <Page404 />
-        },
-        {
-            path: '/login',
-            element: <LoginPage />,
-            errorElement: <Page404 />
-        },
-        {
-            path: '/register',
-            element: <RegisterPage />,
             errorElement: <Page404 />
         },
         {

@@ -30,8 +30,8 @@ const MusicSearch = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${BackGroundMusicImage})` }}>
-            <div className="flex mt-48 md:mt-56 rounded-lg border-0 md:w-1/2 sm:w-full lg:mt-96 gap-5">
+        <div className="min-h-screen flex items-center justify-center bg-[length:900px_900px] md:bg-cover bg-center max-h-screen max-w-screen-max" style={{ backgroundImage: `url(${BackGroundMusicImage})` }}>
+            <div className="flex mt-56 rounded-lg border-0 md:w-1/2 sm:w-full lg:mt-96 gap-5">
                 <input
                     type="text" required
                     value={search}
