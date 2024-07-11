@@ -17,3 +17,4 @@ python-dotenv>=1.0.1
 bs4>=0.0.1
 selenium>=4.19.0
 webdriver-manager>=4.0.1
+yt-dlp>=2024.4.9

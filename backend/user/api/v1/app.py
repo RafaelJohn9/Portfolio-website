@@ -89,4 +89,4 @@ if __name__ == "__main__":
     """ Main Function """
     host = getenv('USER_API_HOST', 'localhost')
     port = getenv('USER_API_PORT', '5000')
-    app.run(host=host, port=port, threaded=True)
+    app.run(host=host, port=port, threaded=True, debug=True)

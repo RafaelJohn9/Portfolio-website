@@ -1,1 +1,5 @@
 2024-05-23 22:21:11,716 - ERROR - regex_search: could not find match for (?:v=|\/)([0-9A-Za-z_-]{11}).*
+2024-07-11 05:21:36,974 - ERROR - get_throttling_function_name: could not find match for multiple
+2024-07-11 05:31:19,587 - ERROR - get_throttling_function_name: could not find match for multiple
+2024-07-11 05:40:08,317 - ERROR - [0;31mERROR:[0m Postprocessing: ffprobe and ffmpeg not found. Please install or provide the path using --ffmpeg-location
+2024-07-11 05:42:52,552 - ERROR - [0;31mERROR:[0m [generic] '#!/usr/bin/python3' is not a valid URL. Set --default-search "ytsearch" (or run  yt-dlp "ytsearch:#!/usr/bin/python3" ) to search YouTube

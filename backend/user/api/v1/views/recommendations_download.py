@@ -2,11 +2,11 @@
 """Route for downloading recommendations (movies, music, books)"""
 import io
 from flask import request, jsonify, send_file, make_response
-from pytube import YouTube
+import requests
 from api.v1.views import app_views
 from external_apis.music_downloader.music_link_getter import get_music_link
+from external_apis.music_downloader.music_download_link import get_audio_download_link
 from external_apis.book_downloader.book_downloader import get_book_download_link
-
 
 @app_views.route('/music/download', methods=['POST'])
 def download_music():
@@ -24,20 +24,29 @@ def download_music():
     if not youtube_url:
         return jsonify({'error': 'No video found for the given query'}), 404
 
-    # Create a YouTube object
-    yt = YouTube(youtube_url)
+    # Get the audio download link using get_audio_download_link function
+    audio_download_link = get_audio_download_link(youtube_url)
 
-    # Get the audio-only stream
-    audio_stream = yt.streams.filter(only_audio=True).first()
+    if not audio_download_link:
+        return jsonify({'error': 'Failed to get the audio download link'}), 500
 
+    # Create a BytesIO buffer to hold the audio data
     audio_file = io.BytesIO()
 
-    audio_stream.stream_to_buffer(audio_file)
-    audio_file.seek(0)
+    try:
+        # Download the audio file from the audio_download_link
+        response = requests.get(audio_download_link)
+        response.raise_for_status()  # Raise an error for bad status codes
+
+        # Write the content to the BytesIO buffer
+        audio_file.write(response.content)
+        audio_file.seek(0)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
     # Send the audio file as a response
     response = make_response(send_file(audio_file, mimetype='audio/mpeg'))
-    response.headers['Content-Disposition'] = f'attachment; filename={audio_stream.default_filename}'
+    response.headers['Content-Disposition'] = f'attachment; filename={query}.mp3'
 
     return response
 
